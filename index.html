@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Outil de décision pour la récupération en patinage de vitesse courte piste. Choisis ta phase, ta séance et ton délai, l'outil donne le plan.">
+<meta name="theme-color" content="#17222A">
+
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Récupération">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta property="og:title" content="Récupération Courte Piste">
+<meta property="og:description" content="Outil de décision pour la récupération en patinage de vitesse courte piste.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Figtree:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<title>Récupération Courte Piste</title>
+<style>
+/* Palette Patinage de vitesse Canada
+   Rouge du symbole #D12030 · Gris du symbole #96A3AC
+   Gris foncé PMS 7545C #425563 · Gris pâle PMS 7542C #A4BCC2 */
+:root{
+  --red:#D12030; --red-dk:#A5121F; --red-bg:#FCE9EA;
+  --ssc-grey:#96A3AC; --ssc-dark:#425563; --ssc-light:#A4BCC2;
+  --slate-950:#17222A;
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#EEF2F4;
+  --ink:#17222A; --ink-2:#425563; --ink-3:#78888F; --rule:#D9E1E4;
+  --go:#146A4C; --go-bg:#E2F1EA;
+  --amber:#7D5A0B; --amber-bg:#F8EFD8;
+  --shadow:0 1px 1px rgba(23,34,42,.04), 0 16px 34px -24px rgba(23,34,42,.55);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1015; --surface:#121A20; --surface-2:#1A242B;
+    --ink:#E9EFF1; --ink-2:#A4BCC2; --ink-3:#76868F; --rule:#26333B;
+    --red:#FF4C5B; --red-dk:#D12030; --red-bg:#2E1214;
+    --go:#5FC79B; --go-bg:#0E2A21;
+    --amber:#DDB55F; --amber-bg:#2B2310;
+    --shadow:0 1px 1px rgba(0,0,0,.4), 0 16px 32px -24px rgba(0,0,0,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1015; --surface:#121A20; --surface-2:#1A242B;
+  --ink:#E9EFF1; --ink-2:#A4BCC2; --ink-3:#76868F; --rule:#26333B;
+  --red:#FF4C5B; --red-dk:#D12030; --red-bg:#2E1214;
+  --go:#5FC79B; --go-bg:#0E2A21;
+  --amber:#DDB55F; --amber-bg:#2B2310;
+  --shadow:0 1px 1px rgba(0,0,0,.4), 0 16px 32px -24px rgba(0,0,0,.95);
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:Figtree,Arial,system-ui,sans-serif;font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:Archivo,Arial,sans-serif;text-transform:uppercase;text-wrap:balance;font-weight:800}
+h1{font-size:clamp(2rem,5.6vw,3.3rem);line-height:.96;letter-spacing:-.025em}
+h2{font-size:clamp(1.3rem,3.4vw,1.9rem);line-height:1.04;letter-spacing:-.02em}
+h3{font-size:1rem;letter-spacing:-.005em}
+p{margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px;padding-block:0 calc(60px + env(safe-area-inset-bottom))}
+.mono{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+
+/* HERO */
+.hero{margin-inline:-20px;padding-top:calc(28px + env(safe-area-inset-top));position:relative;overflow:hidden;background:var(--slate-950);color:#fff;padding:28px 24px 30px;border-bottom:5px solid var(--red)}
+.hero::after{content:"";position:absolute;right:-90px;top:-70px;width:340px;height:340px;border:46px solid rgba(150,163,172,.09);border-radius:999px;pointer-events:none}
+.hero-top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.14);position:relative;z-index:1}
+.logo{height:56px;width:auto;flex:none;display:block}
+.brand-txt{display:flex;flex-direction:column;gap:2px}
+.brand-txt .l1{font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:.88rem;color:#fff;line-height:1.2}
+.brand-txt .l2{font-family:"DM Mono",monospace;font-size:.61rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ssc-grey)}
+.brand-spacer{flex:1}
+.brand-date{font-family:"DM Mono",monospace;font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ssc-grey)}
+.hero-main{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px}
+.hero h1{max-width:15ch;color:#fff}
+.hero h1 .accent{color:var(--red)}
+.lede{font-size:1.05rem;color:#C4CDD3;max-width:58ch;line-height:1.5}
+
+/* TABS */
+.tabs{display:flex;gap:0;margin-inline:-20px;padding-inline:20px;background:var(--surface-2);border-bottom:2px solid var(--rule);position:sticky;top:0;z-index:20}
+.tab{
+  font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:.82rem;letter-spacing:.01em;
+  padding:15px 18px;border:none;background:none;color:var(--ink-3);cursor:pointer;
+  border-bottom:4px solid transparent;margin-bottom:-2px;
+}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red)}
+.tab:hover{color:var(--ink)}
+
+section{margin-block:44px 0}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.sec-tag{display:flex;align-items:baseline;gap:12px}
+.sec-tag .n{font-family:"DM Mono",monospace;font-size:.74rem;color:var(--red)}
+.sec-head .sub{font-size:1rem;color:var(--ink-2);max-width:66ch}
+
+/* PICKERS */
+.panel{border:2px solid var(--ink);border-radius:3px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.pick{padding:16px 16px 4px;border-bottom:1px solid var(--rule)}
+.pick .q{display:flex;align-items:baseline;gap:9px;margin-bottom:11px}
+.pick .q .i{font-family:"DM Mono",monospace;font-size:.68rem;color:var(--red)}
+.pick .q .t{font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.02em}
+.pick .q .h{font-family:"DM Mono",monospace;font-size:.66rem;color:var(--ink-3);margin-left:auto}
+.opts{display:flex;flex-wrap:wrap;gap:7px;padding-bottom:14px}
+.opt{
+  font-family:Figtree,Arial,sans-serif;font-size:.86rem;font-weight:600;
+  padding:8px 13px;border-radius:99px;cursor:pointer;line-height:1.25;text-align:left;
+  background:var(--surface-2);color:var(--ink-2);border:1.5px solid var(--rule);
+  display:flex;flex-direction:column;transition:all .12s;
+}
+.opt .sub{font-family:"DM Mono",monospace;font-size:.64rem;color:var(--ink-3);font-weight:400}
+.opt:hover{border-color:var(--red)}
+.opt[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.opt[aria-pressed="true"] .sub{color:rgba(255,255,255,.78)}
+.opt.eq[aria-pressed="true"]{background:var(--slate-950);border-color:var(--slate-950);color:#fff}
+:root[data-theme="dark"] .opt.eq[aria-pressed="true"],:root:not([data-theme="light"]) .opt.eq[aria-pressed="true"]{background:var(--ssc-light);border-color:var(--ssc-light);color:#0A1015}
+.eqtools{display:flex;gap:6px;margin-left:auto}
+.mini{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;background:none;border:1px solid var(--rule);color:var(--ink-3);padding:4px 9px;border-radius:99px;cursor:pointer}
+.mini:hover{border-color:var(--red);color:var(--red)}
+
+/* RESULTS */
+.out{padding:18px 16px 20px;background:var(--surface-2)}
+.grp{margin-bottom:20px}
+.grp:last-child{margin-bottom:0}
+.grp-h{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.grp-h .badge{font-family:Archivo,sans-serif;font-weight:800;text-transform:uppercase;font-size:.68rem;letter-spacing:.06em;padding:4px 10px;border-radius:2px}
+.grp-h .cnt{font-family:"DM Mono",monospace;font-size:.66rem;color:var(--ink-3)}
+.grp-h .rest{flex:1;height:1px;background:var(--rule)}
+.b-prio{background:var(--red);color:#fff}
+.b-plus{background:var(--go-bg);color:var(--go)}
+.b-opt{background:var(--surface);color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--rule)}
+.b-no{background:var(--slate-950);color:#fff}
+:root[data-theme="dark"] .b-no,:root:not([data-theme="light"]) .b-no{background:#000;color:#FF4C5B}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:10px}
+.card{background:var(--surface);border:1.5px solid var(--rule);border-radius:3px;padding:13px 14px;display:flex;flex-direction:column;gap:7px}
+.card.prio{border-color:var(--red);border-left-width:4px}
+.card.no{opacity:.72;border-left:4px solid var(--ink-3)}
+.card .nm{font-family:Archivo,sans-serif;font-weight:800;text-transform:uppercase;font-size:.88rem;line-height:1.15}
+.card .meta{display:flex;flex-direction:column;gap:4px;padding:8px 0;border-block:1px solid var(--rule)}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mk{font-family:"DM Mono",monospace;font-size:.59rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.mrow.warn .mk{color:var(--red)}
+.mrow.flag .mk{color:var(--amber)}
+.mv.fl{font-family:"DM Mono",monospace;font-size:.62rem;color:var(--amber);cursor:help}
+.mrow.warn .mk::before{content:"⚠ ";font-size:.6rem}
+.mv{display:flex;align-items:center;gap:3px}
+.mv.ev{font-family:"DM Mono",monospace;font-size:.62rem;color:var(--ink-2);text-align:right;line-height:1.2;cursor:help}
+.gtag{font-family:"DM Mono",monospace;font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:2px}
+.g-fondation{background:var(--red);color:#fff}
+.g-optimisation{background:var(--surface-2);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--rule)}
+.g-confort{background:transparent;color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--rule)}
+.stars{display:inline-flex;gap:2px;align-items:center}
+.stars i{width:6px;height:6px;border-radius:99px;background:var(--rule);display:block}
+.stars.ben i.f{background:var(--ssc-dark)}
+:root[data-theme="dark"] .stars.ben i.f,:root:not([data-theme="light"]) .stars.ben i.f{background:var(--ssc-light)}
+.stars.blo i.f{background:var(--red)}
+.rate.warn::before{content:"⚠";font-size:.62rem;color:var(--red);margin-right:2px}
+.irow .ev{font-family:"DM Mono",monospace;font-size:.62rem;color:var(--ink-2);border:1px solid var(--rule);padding:1px 6px;border-radius:2px;cursor:help}
+.card .dose{font-family:"DM Mono",monospace;font-size:.76rem;color:var(--ink);background:var(--surface-2);padding:5px 8px;border-radius:2px;line-height:1.35}
+.card .dose span{display:block;color:var(--ink-3);font-size:.7rem}
+.card .why{font-size:.82rem;color:var(--ink-2);line-height:1.4}
+.card.no .why{color:var(--red-dk)}
+:root[data-theme="dark"] .card.no .why,:root:not([data-theme="light"]) .card.no .why{color:var(--red)}
+.empty{font-family:"DM Mono",monospace;font-size:.76rem;color:var(--ink-3);padding:8px 0}
+.phase-note{
+  font-size:.86rem;line-height:1.45;color:var(--ink-2);
+  background:var(--surface);border-left:4px solid var(--red);
+  padding:11px 14px;border-radius:0 3px 3px 0;margin-bottom:18px;
+}
+.legend{margin-top:20px;padding-top:14px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:6px}
+.lg{font-size:.79rem;line-height:1.45;color:var(--ink-3)}
+.lg b{color:var(--ink-2);font-weight:700}
+.principle{margin-top:16px;background:var(--surface-2);border-left:4px solid var(--red);padding:14px 16px;border-radius:0 3px 3px 0}
+.principle .pk{display:block;font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.principle p{font-size:.87rem;line-height:1.5;color:var(--ink-2)}
+.hidden-note{font-family:"DM Mono",monospace;font-size:.68rem;color:var(--ink-3);margin-top:14px}
+
+/* IMPACT LIST (onglet Comprendre) */
+.impact{background:var(--surface);border:2px solid var(--ink);border-radius:3px;overflow:hidden;box-shadow:var(--shadow)}
+.iband{padding:12px 16px;display:flex;flex-direction:column;gap:2px}
+.iband.a{background:var(--red);color:#fff}
+.iband.b{background:var(--slate-950);color:#fff}
+.iband.c{background:var(--surface-2);color:var(--ink)}
+:root[data-theme="dark"] .iband.b,:root:not([data-theme="light"]) .iband.b{background:#000}
+.iband .t{font-family:Archivo,sans-serif;font-weight:800;text-transform:uppercase;font-size:.95rem;line-height:1.1}
+.iband .s{font-size:.82rem;opacity:.85;line-height:1.35}
+.irow{display:grid;grid-template-columns:1fr 168px;gap:16px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--rule)}
+.irow .r{display:flex;flex-direction:column;gap:5px}
+.rl{display:flex;align-items:center;gap:7px;justify-content:space-between}
+.vnote{font-family:"DM Mono",monospace;font-size:.58rem;line-height:1.35;color:var(--red);text-align:right}
+.rk{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+@media (max-width:620px){.irow{grid-template-columns:1fr}}
+.irow:last-child{border-bottom:none}
+.irow .l .n2{font-weight:700;font-size:.93rem;line-height:1.25}
+.irow .l .d{font-size:.83rem;color:var(--ink-2);line-height:1.4;margin-top:2px}
+.dots{display:flex;gap:4px;justify-content:flex-end;align-items:center}
+.dot{width:10px;height:10px;border-radius:99px;background:var(--rule)}
+.dot.on{background:var(--red)}
+.irow.tb .dot.on{background:var(--ssc-dark)}
+:root[data-theme="dark"] .irow.tb .dot.on,:root:not([data-theme="light"]) .irow.tb .dot.on{background:var(--ssc-light)}
+.irow.tc .dot.on{background:var(--ssc-grey)}
+.sci{font-family:"DM Mono",monospace;font-size:.66rem;color:var(--ink-3);text-align:right;margin-top:3px}
+
+/* ERREURS */
+.errs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.err{background:var(--surface);border:1.5px solid var(--rule);border-left:4px solid var(--red);border-radius:0 3px 3px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.err .n{font-family:"DM Mono",monospace;font-size:.66rem;color:var(--red);letter-spacing:.1em}
+.err h3{font-size:.94rem;line-height:1.25;text-transform:none;font-family:Figtree,Arial,sans-serif;font-weight:700}
+.err p{font-size:.84rem;color:var(--ink-2);line-height:1.42}
+
+.limits{margin-top:40px;background:var(--surface-2);border-radius:3px;padding:20px;display:flex;flex-direction:column;gap:9px}
+.limits .k{font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.limits p{font-size:.87rem;color:var(--ink-2);line-height:1.5;max-width:74ch}
+details{margin-top:16px;border-top:1px solid var(--rule);padding-top:13px}
+summary{cursor:pointer;font-family:"DM Mono",monospace;font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+summary:hover{color:var(--red)}
+details ol{margin:13px 0 0;padding-left:1.4em;columns:2;column-gap:28px;font-size:.74rem;color:var(--ink-3);line-height:1.55}
+details li{break-inside:avoid;margin-bottom:4px}
+details a{color:var(--ink-2)}
+button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:.67rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+[hidden]{display:none!important}
+
+
+
+/* bascule d'affichage */
+.viewbar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--rule)}
+.vk{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+.vbtn{font-family:Figtree,Arial,sans-serif;font-size:.8rem;font-weight:700;min-height:38px;padding:7px 14px;
+  border-radius:99px;cursor:pointer;background:var(--surface-2);color:var(--ink-2);border:1.5px solid var(--rule)}
+.vbtn[aria-pressed="true"]{background:var(--slate-950);color:#fff;border-color:var(--slate-950)}
+:root[data-theme="dark"] .vbtn[aria-pressed="true"],:root:not([data-theme="light"]) .vbtn[aria-pressed="true"]{background:var(--ssc-light);color:#0A1015;border-color:var(--ssc-light)}
+
+/* frise des moments */
+.tgrp{margin-bottom:22px;position:relative;padding-left:20px}
+.tgrp::before{content:"";position:absolute;left:4px;top:14px;bottom:-14px;width:2px;background:var(--rule)}
+.tgrp:last-child::before{display:none}
+.tg-h{display:flex;align-items:baseline;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.tdot{position:absolute;left:0;width:10px;height:10px;border-radius:99px;background:var(--red);margin-top:5px}
+.tdot.no{background:var(--ink-3)}
+.tg-l{font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:.92rem;letter-spacing:-.01em}
+.tg-s{font-family:"DM Mono",monospace;font-size:.66rem;color:var(--ink-3)}
+
+/* ===== ERGONOMIE TERRAIN ===== */
+/* cibles tactiles : gants, patinoire, téléphone */
+.opt{min-height:44px;justify-content:center;padding:9px 15px}
+.mini{min-height:36px;padding:7px 12px}
+.tab{min-height:48px}
+
+/* équipement repliable */
+.eqpick{padding:0;border-bottom:1px solid var(--rule)}
+.eqpick summary{display:flex;align-items:center;gap:9px;padding:15px 16px;cursor:pointer;min-height:52px;list-style:none}
+.eqpick summary::-webkit-details-marker{display:none}
+.eqpick summary::after{content:"▾";margin-left:auto;color:var(--ink-3);font-size:.8rem;transition:transform .15s}
+.eqpick[open] summary::after{transform:rotate(180deg)}
+.eqpick summary .i{font-family:"DM Mono",monospace;font-size:.68rem;color:var(--red)}
+.eqpick summary .t{font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.02em}
+.eqsum{font-family:"DM Mono",monospace;font-size:.68rem;color:var(--ink-3);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.eqbody{padding:0 16px 6px}
+.eqtools{display:flex;gap:7px;margin-bottom:10px}
+
+/* bandeau de réponse */
+.answer{background:var(--surface);border-left:5px solid var(--red);border-radius:0 3px 3px 0;padding:14px 16px;margin-bottom:18px;display:flex;flex-direction:column;gap:3px}
+.answer .ak{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.answer .av{font-family:Archivo,Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:1.15rem;line-height:1.15;letter-spacing:-.02em}
+.answer .ad{font-size:.84rem;color:var(--ink-2);line-height:1.4;margin-top:3px}
+
+/* durée sur la carte */
+.tchip{align-self:flex-start;font-family:"DM Mono",monospace;font-size:.64rem;letter-spacing:.05em;
+  background:var(--surface-2);color:var(--ink-2);padding:3px 8px;border-radius:99px}
+.tchip::before{content:"⏱ ";opacity:.6}
+
+/* niveau de preuve coloré selon la solidité */
+.pv-1a{color:var(--go)!important}
+.pv-1b{color:var(--ink-2)!important}
+.pv-23{color:var(--amber)!important}
+
+@media (max-width:640px){
+  details ol{columns:1}
+  .tab{padding:13px 12px;font-size:.76rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-top">
+      <img class="logo" alt="Patinage de vitesse Canada" src="data:image/png;base64,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">
+      <div class="brand-txt">
+        <span class="l1">Patinage de vitesse Canada</span>
+        <span class="l2">Courte piste · Athlètes et entraîneurs</span>
+      </div>
+      <span class="brand-spacer"></span>
+      <span class="brand-date">Septembre 2026</span>
+    </div>
+    <div class="hero-main">
+      <h1>Récupération&nbsp;: <span class="accent">ton plan du jour</span></h1>
+      <p class="lede">Dis ce que tu viens de faire, quand tu repars, et ce que tu as sous la main. L'outil te donne l'éventail de ce qui vaut la peine, et ce qu'il vaut mieux laisser de côté aujourd'hui.</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" id="tab-plan" role="tab" aria-selected="true" aria-controls="v-plan">Mon plan</button>
+    <button class="tab" id="tab-savoir" role="tab" aria-selected="false" aria-controls="v-savoir">Comprendre</button>
+  </div>
+
+  <!-- ============ ONGLET PLAN ============ -->
+  <div id="v-plan" role="tabpanel" aria-labelledby="tab-plan">
+    <section>
+      <div class="panel">
+        <div class="pick">
+          <div class="q"><span class="i">01</span><span class="t">Je suis en</span></div>
+          <div class="opts" id="pickPhase"></div>
+        </div>
+        <div class="pick">
+          <div class="q"><span class="i">02</span><span class="t">Je viens de faire</span></div>
+          <div class="opts" id="pickSess"></div>
+        </div>
+        <div class="pick">
+          <div class="q"><span class="i">03</span><span class="t">Je repars dans</span></div>
+          <div class="opts" id="pickDelay"></div>
+        </div>
+        <details class="pick eqpick" id="eqBox">
+          <summary>
+            <span class="i">04</span><span class="t">Mon équipement</span>
+            <span class="eqsum" id="eqSum"></span>
+          </summary>
+          <div class="eqbody">
+            <span class="eqtools">
+              <button class="mini" type="button" id="eqAll">Tout cocher</button>
+              <button class="mini" type="button" id="eqNone">Tout décocher</button>
+            </span>
+            <div class="opts" id="pickEq"></div>
+          </div>
+        </details>
+        <div class="viewbar">
+          <span class="vk">Affichage</span>
+          <button class="vbtn" type="button" data-view="prio" aria-pressed="true">Par priorité</button>
+          <button class="vbtn" type="button" data-view="time" aria-pressed="false">Par moment</button>
+        </div>
+        <div class="out" id="out"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ONGLET COMPRENDRE ============ -->
+  <div id="v-savoir" role="tabpanel" aria-labelledby="tab-savoir" hidden>
+
+    <section>
+      <div class="sec-head">
+        <div class="sec-tag"><span class="n">01</span><h2>Ce qui compte vraiment</h2></div>
+        <p class="sub">Toutes les méthodes de récupération ne se valent pas, et l'écart est plus grand qu'on ne le croit. Voici ce que chacune apporte réellement, du plus au moins utile.</p>
+      </div>
+
+      <div class="impact" id="impact"></div>
+      <div class="principle">
+        <span class="pk">Le principe qui relie tout ça</span>
+        <p>Refroidir après un stress d'endurance, réchauffer après un stress de force. Le froid agit sur les dommages mécaniques et la douleur, la chaleur sur la récupération métabolique et le sommeil. Appliquer la même chose toute l'année, quelle que soit la séance, c'est se priver de l'un ou payer le coût de l'autre.</p>
+      </div>
+      <p class="hidden-note">Deux lectures par stratégie : ce qu'elle apporte, et ce qu'elle coûte à tes adaptations. Le niveau de preuve va de 1a, une méta-analyse d'essais contrôlés, à 2-3, des essais mitigés ou un consensus d'experts. Passe la souris sur le code pour le détail.</p>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <div class="sec-tag"><span class="n">02</span><h2>Six erreurs fréquentes</h2></div>
+      </div>
+      <div class="errs">
+        <div class="err"><span class="n">ERREUR 01</span><h3>Empiler les méthodes quand on dort six heures</h3><p>Rien ne remplace une heure de sommeil de plus par nuit. C'est la première chose à régler, avant d'ajouter quoi que ce soit.</p></div>
+        <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la salle de musculation</h3><p>C'est le seul vrai conflit démontré : le froid freine les gains de masse et de force. Mettre de la compression à la place.</p></div>
+        <div class="err"><span class="n">ERREUR 03</span><h3>Trottiner entre deux courses</h3><p>Entre deux courses rapprochées, rester assis au chaud bat le retour au calme actif sur toutes les mesures.</p></div>
+        <div class="err"><span class="n">ERREUR 04</span><h3>Se réveiller vingt minutes avant de patiner</h3><p>Il faut au moins une heure entre la fin de la sieste et l'effort, sinon l'inertie du réveil annule le bénéfice.</p></div>
+        <div class="err"><span class="n">ERREUR 05</span><h3>Mettre l'eau plus froide en pensant faire mieux</h3><p>Entre 11 et 15 °C, c'est là que ça marche le mieux. Plus froid, c'est juste plus désagréable et moins bien toléré.</p></div>
+        <div class="err"><span class="n">ERREUR 06</span><h3>Promettre des résultats avec les bottes ou l'électrostim</h3><p>Ça fait du bien, et c'est déjà une raison valable. Mais annoncer un gain de performance décrédibilise le reste du message.</p></div>
+      </div>
+    </section>
+
+    <div class="limits">
+      <span class="k">Ce que les études ne couvrent pas</span>
+      <p>Aucune étude ne porte sur la courte piste : tout ceci est transposé du sport collectif, de la course et du cyclisme, et le format à courses multiples rapprochées n'a jamais été étudié pour lui-même. Les participants sont des hommes à 85 % dans les travaux sur le bain froid et à 100 % dans ceux sur la sieste. Le parasport n'est pas couvert, et les repères de température ne s'y transposent pas en cas de lésion médullaire ou d'amputation. Enfin, presque toutes ces études comparent au simple repos et non à un placebo, ce qui veut dire qu'une partie de l'effet mesuré vient de l'attente elle-même.</p>
+
+      <details>
+        <summary>Références · 58 revues systématiques, méta-analyses et essais contrôlés</summary>
+        <ol>
+          <li>Bieuzen F. et al. (2014). Low-frequency electrical stimulation during short-term recovery and subsequent high-intensity exercise. <em>Appl Physiol Nutr Metab</em>.</li>
+        <li>Bieuzen F. et al. (2012). Recovery after high-intensity intermittent exercise in elite soccer players using VeinoPlus Sport. <em>J Athl Train</em>.</li>
+        <li>Ferguson R. et al. (2014). NMES via the peroneal nerve is superior to graduated compression socks in reducing perceived muscle soreness. <em>Eur J Appl Physiol</em>.</li>
+        <li>Stacey M. et al. (2024). Continuous muscle pump activation by common peroneal nerve NMES: position paper. <em>Int Wound J</em>.</li>
+        <li>Santos M. et al. (2025). NMES on symptoms of chronic venous disease: systematic review. <em>Vasc Med</em>.</li>
+        <li>Wang H. et al. (2025). Doses of cold water immersion (duration and temperature): network meta-analysis of 55 RCTs. <em>Front Physiol</em>.</li>
+        <li>Négyesi J. et al. (2022). Can compression garments reduce the deleterious effects of exercise on muscle strength? Meta-analyses. <em>Sports Med</em>.</li>
+        <li>Malta E.S. et al. (2020). Regular cold-water immersion and training-induced changes in strength and endurance: meta-analysis. <em>Sports Med</em>.</li>
+        <li>Thorpe R.T. (2021). Post-exercise recovery: cooling and heating, a periodized approach. <em>Front Sports Act Living</em>. <a href="https://doi.org/10.3389/fspor.2021.707503">DOI</a></li>
+        <li>Ihsan M. et al. (2021). Adaptations to post-exercise cold water immersion: friend, foe, or futile? <em>Front Sports Act Living</em>.</li>
+        <li>Hyldahl R.D. et al. (2020). Combining cooling or heating applications with exercise training. <em>J Appl Physiol</em>.</li>
+        <li>Broatch J. et al. (2017). CWI following sprint interval training does not alter endurance signalling. <em>Am J Physiol</em>.</li>
+        <li>Machado A.F. et al. (2015). Can water temperature and immersion time influence the effect of CWI on muscle soreness? <em>Sports Med</em>.</li>
+        <li>Ihsan M. et al. (2015). Regular postexercise cooling enhances mitochondrial biogenesis via AMPK and p38 MAPK. <em>Am J Physiol</em>.</li>
+        <li>Wu J. et al. (2026). Cryotherapy interventions on DOMS and performance: network meta-analysis. <em>Front Sports Act Living</em>.</li>
+          <li>Yu T. et al. (2026). Cold water immersion protocol optimization: network meta-analysis. <em>BMC Sports Sci Med Rehabil</em>. <a href="https://doi.org/10.1186/s13102-026-01653-5">DOI</a></li>
+          <li>Zhu Y. et al. (2026). Cold-water immersion at different body regions. <em>Front Sports Act Living</em>.</li>
+          <li>Zheng J.-N. et al. (2026). Napping and performance in team ball sports. <em>Front Physiol</em>.</li>
+          <li>Hou C. et al. (2026). Recovery strategies on explosive performance: network meta-analysis. <em>Healthcare</em>.</li>
+          <li>Li L. et al. (2026). Psychological interventions on competitive anxiety. <em>Sports Med Open</em>.</li>
+          <li>Tornero-Aguilera J.F. et al. (2026). The CWI recovery-adaptation paradox. <em>Exp Physiol</em>. <a href="https://doi.org/10.1113/EP094042">DOI</a></li>
+          <li>Malta E.S. et al. (2026). CWI following HIIT and adaptation markers. <em>Scand J Med Sci Sports</em>. <a href="https://doi.org/10.1111/sms.70241">DOI</a></li>
+          <li>Canez M.S. et al. (2025). Photobiomodulation, IPC and NMES on muscle recovery. <em>J Bodyw Mov Ther</em>.</li>
+          <li>Albillos-Almaraz L. et al. (2025). Intermittent pneumatic compression. <em>Strength Cond J</em>.</li>
+          <li>Li X. et al. (2025). Compression garments on strength and power recovery. <em>Life</em>.</li>
+          <li>Xie B.-Y. et al. (2025). Mindfulness interventions: umbrella review. <em>J Exerc Sci Fit</em>.</li>
+          <li>Vatne E. et al. (2025). Recovery modalities in soccer players. <em>Sports</em>.</li>
+          <li>Szajkowski S. et al. (2025). Foam rolling or percussive massage. <em>J Funct Morphol Kinesiol</em>.</li>
+          <li>Bouzouraa E. et al. (2025). Single-night sleep extension. <em>Life</em>.</li>
+          <li>Yu H. et al. (2025). Daytime napping in athletes. <em>Eur J Appl Physiol</em>.</li>
+          <li>Gustafsson J. et al. (2025). Cold- and hot-water immersion vs placebo. <em>Eur J Appl Physiol</em>. <a href="https://doi.org/10.1007/s00421-025-05835-w">DOI</a></li>
+          <li>Xiao F. et al. (2025). Contrast water therapy: meta-analysis. <em>Trends Phys Educ Sport</em>.</li>
+          <li>Li S. et al. (2024). Recovery strategies in endurance athletes: umbrella review. <em>Sports Med Open</em>.</li>
+          <li>Edholm P. et al. (2024). Recovery strategies for winter athletes, Milano-Cortina 2026. <em>Sport Sci Health</em>.</li>
+          <li>Chen R. et al. (2024). Hydrotherapy and cryotherapy: network meta-analysis. <em>BMC Musculoskelet Disord</em>.</li>
+          <li>Feng C. et al. (2024). Post-exercise cryostimulation techniques. <em>Heliyon</em>.</li>
+          <li>Maia F. et al. (2024). Lower-limb intermittent pneumatic compression. <em>Biol Sport</em>.</li>
+          <li>Zhou J. et al. (2024). Foam rolling on muscle soreness. <em>J Bodyw Mov Ther</em>.</li>
+          <li>Zouhal H. et al. (2024). Passive or active recovery in interval training. <em>Sports Med Open</em>.</li>
+          <li>Piñero A. et al. (2024). CWI and resistance training hypertrophy. <em>Eur J Sport Sci</em>.</li>
+          <li>Horgan B.G. et al. (2024). Cold or hot water immersion in rugby players. <em>Eur J Appl Physiol</em>. <a href="https://doi.org/10.1007/s00421-024-05424-3">DOI</a></li>
+          <li>Boukhris O. et al. (2023). Napping and physical performance. <em>Sports Med</em>.</li>
+          <li>Mesas A.E. et al. (2023). Napping, sport performance and fatigue. <em>Br J Sports Med</em>.</li>
+          <li>Cunha L. et al. (2023). Sleep interventions on athletic performance. <em>Sports Med Open</em>.</li>
+          <li>Reinebo G. et al. (2023). Psychological interventions and performance. <em>Sports Med</em>.</li>
+          <li>Medeiros F.V.A. et al. (2023). Foam roller or stick massage. <em>J Bodyw Mov Ther</em>.</li>
+          <li>Menezes D. et al. (2022). Electrical stimulation for DOMS. <em>J Pain</em>.</li>
+          <li>Moore E. et al. (2022). CWI compared with other recovery modalities. <em>Sports Med</em>.</li>
+          <li>Myall K. et al. (2022). Mindfulness programmes and elite athlete mental health. <em>Br J Sports Med</em>.</li>
+          <li>Grgic J. (2022). CWI and resistance training strength gains. <em>Eur J Sport Sci</em>.</li>
+          <li>Lastella M. et al. (2021). Napping behaviour in athletes. <em>Nat Sci Sleep</em>.</li>
+          <li>Wiewelhove T. et al. (2019). Foam rolling on performance and recovery. <em>Front Physiol</em>.</li>
+          <li>Ortiz R.O. et al. (2019). Active recovery interventions. <em>J Strength Cond Res</em>.</li>
+          <li>Madueno M.C. et al. (2019). Active and passive recovery between sprints. <em>J Sports Med Phys Fitness</em>.</li>
+          <li>Fyfe J. et al. (2019). CWI attenuates fibre hypertrophy but not strength gain. <em>J Appl Physiol</em>.</li>
+          <li>Brown F. et al. (2017). Compression garments and recovery. <em>Sports Med</em>.</li>
+          <li>Roberts L. et al. (2015). CWI attenuates anabolic signalling. <em>J Physiol</em>.</li>
+          <li>Mah C.D. et al. (2011). Sleep extension in collegiate basketball players. <em>Sleep</em>.</li>
+        </ol>
+      </details>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span>Recherche PubMed et Consensus</span>
+    <span>Nutrition traitée séparément</span>
+  </div>
+
+</div>
+
+<script>
+/* ---------- DONNÉES ---------- */
+var EQUIP=[
+  {id:"bainfroid",lbl:"Bain froid"},
+  {id:"bainchaud",lbl:"Bain chaud"},
+  {id:"compression",lbl:"Vêtements de compression"},
+  {id:"bottes",lbl:"Bottes pneumatiques"},
+  {id:"rouleau",lbl:"Rouleau, balle"},
+  {id:"massage",lbl:"Massothérapeute"},
+  {id:"estim",lbl:"Électrostimulation musculaire"},
+  {id:"veinoplus",lbl:"VeinoPlus"},
+  {id:"firefly",lbl:"Firefly ou geko"},
+  {id:"calme",lbl:"Endroit calme pour dormir"}
+];
+
+/* gain      : fondation (gains importants) | optimisation (gains marginaux) | confort
+   benef     : bénéfice réel ou ressenti, 0 à 5
+   blocage   : risque de freiner les adaptations, 0 à 5
+   preuve    : 1a méta-analyse ou revue systématique d'ECR
+               1b ECR individuel robuste
+               2-3 ECR mitigés ou consensus d'experts */
+var MODS={
+  sommeil:{nm:"Sommeil long",eq:null,temps:"la nuit",d1:"9 à 10 h au lit",d2:"Coucher avancé, chambre fraîche et noire",
+    gain:"fondation",benef:5,blocage:0,preuve:"1a"},
+  sieste:{nm:"Sieste",eq:"calme",temps:"30–90 min",d1:"30 à 90 min",d2:"Entre 13 h et 15 h, réveil 60 min avant l'effort",
+    gain:"fondation",benef:5,blocage:0,preuve:"1a"},
+  froid:{nm:"Bain froid",eq:"bainfroid",temps:"10–15 min",d1:"11 à 15 °C · 10 à 15 min",d2:"Jusqu'aux hanches, dans les 30 min",
+    gain:"optimisation",benef:3,blocage:5,blocageVar:true,preuve:"1a",
+    conteste:"Le seul essai mené contre un placebo crédible n'a retrouvé aucun avantage"},
+  chaud:{nm:"Bain chaud",eq:"bainchaud",temps:"15–20 min",d1:"38 à 40 °C · 15 à 20 min",d2:"1 à 2 h avant le coucher",
+    gain:"optimisation",benef:2,blocage:0,preuve:"2-3"},
+  compression:{nm:"Vêtements de compression",eq:"compression",temps:"2–48 h",d1:"15 à 25 mmHg · 2 à 48 h",d2:"Sur les jambes travaillées",
+    gain:"optimisation",benef:1,blocage:0,preuve:"1a",conteste:"Les méta-analyses se contredisent : certaines trouvent un petit effet, une autre n'en trouve aucun"},
+  active:{nm:"Retour au calme actif",eq:null,temps:"6–10 min",d1:"6 à 10 min · très souple",d2:"Vélo ou marche, sans forcer",
+    gain:"optimisation",benef:2,blocage:0,preuve:"2-3"},
+  passif:{nm:"Repos assis au chaud",eq:null,temps:"la pause",d1:"Tout l'intervalle",d2:"Couvert, réactivation 10 min avant la course",
+    gain:"optimisation",benef:3,blocage:0,preuve:"1b"},
+  respiration:{nm:"Respiration lente",eq:null,temps:"5–10 min",d1:"5 à 10 min · 6 resp./min",d2:"Assis ou allongé, au calme",
+    gain:"optimisation",benef:3,blocage:0,preuve:"2-3"},
+  bottes:{nm:"Bottes pneumatiques",eq:"bottes",temps:"20–30 min",d1:"20 à 30 min · 80 mmHg",d2:"Jambes, en position allongée",
+    gain:"confort",benef:2,blocage:0,preuve:"1a"},
+  rouleau:{nm:"Rouleau et balle",eq:"rouleau",temps:"5–10 min",d1:"30 à 60 s par zone",d2:"5 à 10 min au total",
+    gain:"confort",benef:2,blocage:0,preuve:"1a"},
+  massage:{nm:"Massage",eq:"massage",temps:"15–30 min",d1:"15 à 30 min",d2:"Pression modérée",
+    gain:"confort",benef:2,blocage:0,preuve:"1a"},
+  estim:{nm:"Électrostimulation musculaire",eq:"estim",temps:"20–40 min",d1:"20 à 40 min · basse fréquence",d2:"Sur le muscle travaillé",
+    gain:"confort",benef:0,blocage:0,preuve:"1a"},
+  veinoplus:{nm:"VeinoPlus · flux sanguin",eq:"veinoplus",temps:"la pause",d1:"Mollets · toute la pause",d2:"Assis, entre deux courses",
+    gain:"optimisation",benef:3,blocage:0,preuve:"1b"},
+  firefly:{nm:"Firefly · nerf fibulaire",eq:"firefly",temps:"1–6 h",d1:"1 à 6 h · sous le genou",d2:"Porté au repos ou en déplacement",
+    gain:"optimisation",benef:2,blocage:0,preuve:"1b"}
+};
+
+var MOMENTS=[
+  {k:"now",  lbl:"Tout de suite",        sub:"dans les 30 min qui suivent"},
+  {k:"pm",   lbl:"Début d'après-midi",   sub:"entre 13 h et 15 h"},
+  {k:"eve",  lbl:"Ce soir",              sub:"1 à 2 h avant le coucher"},
+  {k:"night",lbl:"Cette nuit",           sub:"c'est la vraie priorité de la journée"},
+  {k:"any",  lbl:"Quand ça te convient", sub:"sans urgence, si ça te fait du bien"},
+  {k:"never",lbl:"À éviter aujourd'hui", sub:"ce n'est pas le bon moment"}
+];
+function momentOf(id,d,verdict){
+  if(verdict==="no") return "never";
+  if(id==="sommeil") return "night";
+  if(id==="chaud") return "eve";
+  if(id==="sieste") return (d==="d2"||d==="d3"||d==="d4") ? "pm" : "any";
+  if(["active","passif","veinoplus","froid","compression"].indexOf(id)>=0) return "now";
+  return "any";
+}
+
+var GAIN_LBL={fondation:"Fondation",optimisation:"Optimisation",confort:"Confort"};
+var PREUVE_SHORT={"1a":"Preuve solide","1b":"Preuve correcte","2-3":"Preuve limitée"};
+var BENEF_LBL=["Aucun effet mesuré","Effet très faible","Petit effet","Effet modéré","Effet marqué","Effet important"];
+var PREUVE_TITLE={
+  "1a":"Plusieurs études de qualité, regroupées et analysées ensemble. C'est le niveau de confiance le plus élevé.",
+  "1b":"Une étude bien menée, avec tirage au sort et groupe de comparaison, mais pas encore confirmée par d'autres.",
+  "2-3":"Résultats encourageants, mais les études sont peu nombreuses ou de qualité inégale. À prendre avec prudence."
+};
+
+var PHASES=[
+  {id:"dev",lbl:"Développement",sub:"on construit"},
+  {id:"maintien",lbl:"Maintien",sub:"on entretient"},
+  {id:"compet",lbl:"Compétition",sub:"on performe"}
+];
+
+var SESSIONS=[
+  {id:"glace",lbl:"Glace, technique",sub:"volume, endurance"},
+  {id:"force",lbl:"Force maximale",sub:"charges lourdes"},
+  {id:"puissance",lbl:"Puissance, explosif",sub:"départs, pliométrie"},
+  {id:"hypertrophie",lbl:"Hypertrophie",sub:"bloc de masse"},
+  {id:"competition",lbl:"Compétition",sub:"séries, finales"},
+  {id:"voyage",lbl:"Voyage",sub:"vol, décalage"}
+];
+
+/* Séances plausibles selon la phase de saison */
+var SESS_BY_PHASE={
+  dev:["glace","force","hypertrophie","puissance","voyage"],
+  maintien:["glace","force","puissance","competition","voyage"],
+  compet:["glace","force","puissance","competition","voyage"]
+};
+
+var DELAYS=[
+  {id:"d0",lbl:"Moins de 45 min",sub:"course suivante"},
+  {id:"d1",lbl:"1 à 3 h",sub:"2e séance du jour"},
+  {id:"d2",lbl:"4 à 8 h",sub:"plus tard aujourd'hui"},
+  {id:"d3",lbl:"12 à 24 h",sub:"demain"},
+  {id:"d4",lbl:"Plus de 24 h",sub:"repos ou reprise"}
+];
+
+/* Le risque de freiner les adaptations n'est pas une propriété fixe du bain froid.
+   Il dépend de ce qui vient d'être travaillé et de ce qu'on cherche à construire.
+   Après une séance sur glace il est nul : cinq semaines d'intervalles avec bain
+   froid systématique n'ont modifié ni le PGC-1α, ni le VO2max, ni le pool de
+   cellules satellites. Il n'existe qu'après un travail contre résistance, et il
+   s'efface quand on ne cherche plus à construire. */
+function blocageOf(id,s,ph){
+  var m=MODS[id]; if(!m) return 0;
+  if(!m.blocageVar) return m.blocage;
+  var muscu=(s==="force"||s==="hypertrophie"||s==="puissance");
+  if(!muscu) return 0;
+  if(ph==="dev") return s==="hypertrophie" ? 5 : 4;
+  if(ph==="maintien") return 2;
+  return 1;
+}
+var BLOCAGE_TXT=[
+  "Aucun risque de freiner tes adaptations dans ce contexte",
+  "Risque très faible : tu ne cherches plus à construire",
+  "Risque modéré : tu entretiens des qualités, sans les construire",
+  "Risque réel sur le travail explosif en bloc de développement",
+  "Risque important sur tes gains de force en bloc de développement",
+  "Risque maximal : c'est le conflit le mieux démontré de la littérature"
+];
+
+/* v : prio | plus | opt | no */
+function buildPlan(s,d,ph){
+  var v={};
+  function set(id,verdict,why){v[id]={v:verdict,why:why};}
+  function drop(id){delete v[id];}
+
+  /* --- socle commun --- */
+  set("respiration","plus","Baisse le stress et l'anxiété de compétition. Aucune contrainte, faisable partout.");
+  set("bottes","opt","Soulage la sensation de jambes lourdes. Aucun effet sur la force ni sur la récupération réelle.");
+  set("rouleau","opt","Soulage la douleur et la raideur. Aucun effet sur le saut ni sur la force.");
+  set("massage","opt","Agréable et efficace sur la douleur ressentie. Rien de mesurable sur la performance.");
+  set("estim","opt","Aucun effet retenu dans les études. À garder seulement si ça fait partie de ta routine.");
+  set("veinoplus","opt","Testé surtout entre deux efforts rapprochés. En dehors de ce cas précis, on manque de données.");
+  set("firefly","opt","Réduit la douleur ressentie à 24 et 48 h, mieux que des bas de compression. Rien de mesuré sur la force ni sur les marqueurs de dommage.");
+  set("compression","plus","Les études ne s\'accordent pas sur son effet réel. Son vrai avantage est ailleurs : aucun inconvénient connu, utilisable partout.");
+
+  /* --- par délai --- */
+  if(d==="d0"){
+    drop("sommeil");
+    set("passif","prio","Rester assis au chaud, couvert, puis réactiver 10 min avant la course.");
+    set("veinoplus","prio","C'est précisément le scénario où il a été testé : deux essais chez des athlètes professionnels montrent une meilleure performance à la course suivante, et un retour du lactate et du pH plus rapide qu'en repos passif.");
+    set("firefly","opt","Rien à attendre sur cette fenêtre. Son effet documenté porte sur la douleur ressentie le lendemain.");
+    set("active","opt","Très léger si tu y tiens. Le repos passif a l'avantage sur les intervalles courts, mais sur 20 à 45 min l'écart n'est pas démontré.");
+    set("froid","no","La puissance chute dès la sortie du bain, et la vitesse de conduction nerveuse met un bon moment à remonter.");
+    set("chaud","no","Pas le moment, ça ajoute une contrainte thermique avant l'effort.");
+    set("sieste","no","Trop court. L'inertie du réveil te coûterait plus que la sieste ne rapporte.");
+    set("massage","no","Trop appuyé juste avant une course. Garde ça pour après.");
+    set("rouleau","opt","Léger seulement, pour dégourdir. Rien d'appuyé.");
+  }else if(d==="d1"){
+    drop("sommeil");
+    set("passif","plus","Reste une bonne option si tu veux simplement te poser.");
+    set("active","plus","Six à dix minutes très souples, c'est la fenêtre qui ressort le plus souvent.");
+    set("veinoplus","plus","Encore dans sa fenêtre d'usage : récupération courte entre deux efforts, avec une clairance du lactate accélérée.");
+    set("froid","no","Si ta prochaine course est à moins de 2 h, tu patineras encore avec une puissance diminuée.");
+    set("chaud","no","Pas avant un effort, garde-le pour ce soir.");
+    set("sieste","opt","Possible si tu as au moins 90 min devant toi, et 30 min maximum.");
+  }else if(d==="d2"){
+    set("sieste","prio","Entre 13 h et 15 h, c'est l'option la plus rentable de la journée.");
+    set("active","plus","Bon complément juste après la séance.");
+    set("passif","opt","Correct, mais la sieste fait mieux sur ce créneau.");
+    set("froid","plus","La fenêtre est assez longue, à condition que le prochain effort ne soit pas explosif.");
+    set("chaud","opt","Plutôt en fin de journée qu'ici.");
+    set("sommeil","plus","Commence à préparer la nuit dès maintenant.");
+  }else if(d==="d3"){
+    set("sommeil","prio","C'est de loin ce qui te rendra le plus frais demain.");
+    set("chaud","plus","Une à deux heures avant le coucher, ça améliore la qualité du sommeil.");
+    set("froid","plus","Bonne fenêtre, la nuit couvre largement le reste.");
+    set("sieste","opt","Seulement si tu as un manque à rattraper, et pas trop tard.");
+    set("active","opt","Utile si la séance vient de finir, sinon rien à gagner.");
+    set("passif","opt","Rien à redire, mais rien à gagner non plus.");
+  }else{
+    set("sommeil","prio","La vraie récupération se fait ici. Vise à rattraper ce que tu as perdu.");
+    set("veinoplus","opt","Hors de sa fenêtre d'usage. Il a été testé sur des pauses courtes, pas sur des journées entières.");
+    set("froid","opt","Plus d'urgence. C'est une question de préférence maintenant.");
+    set("chaud","opt","Pour le confort et le sommeil, si tu aimes ça.");
+    set("sieste","opt","Bienvenue si la nuit a été courte.");
+    set("active","opt","Une sortie souple si tu en as envie, rien d'obligatoire.");
+    set("passif","opt","Rien de particulier à faire.");
+  }
+
+  /* --- par type de séance --- */
+  if(s==="hypertrophie"||s==="force"){
+    if(d==="d1"||d==="d2"){
+      if(s==="hypertrophie"){
+        set("froid","no","Le froid appliqué après la salle freine directement la construction de masse. C'est le conflit le mieux démontré de la littérature, et on garde par prudence une fenêtre de 4 à 6 h.");
+      }else{
+        set("froid","no","Après des charges lourdes, le froid coûte un peu sur les gains de force, surtout s'il est appliqué sur une seule jambe. En corps entier l'effet est moins net, mais rien ne justifie de le prendre maintenant.");
+      }
+      set("compression","plus","L'effet mesuré est petit et débattu, mais elle ne coûte rien à tes gains. C'est ce qui en fait le bon remplacement du bain froid ici.");
+    }
+    if(d==="d3"){
+      set("froid","opt","La fenêtre critique de 6 h est passée. Si tu y tiens, immersion corps entier plutôt qu'une seule jambe.");
+      set("compression","plus","C'est après la musculation qu'elle a le plus de chances d'aider. L'effet reste petit et débattu, mais sans coût.");
+    }
+    if(d==="d4"){ set("compression","plus","Envisageable s'il reste des courbatures, sans en attendre beaucoup."); }
+    if(d==="d0"){ set("compression","plus","À enfiler dès que tu es assis. Effet petit et débattu, mais rien à perdre et ça occupe l'attente."); }
+  }
+
+  if(s==="puissance"){
+    if(d==="d1"){ set("froid","no","Deux problèmes ici : ta puissance chute tout de suite, et sur un bloc entier le froid atténue aussi les gains sur les efforts explosifs."); set("active","opt","Très léger seulement, sinon tu creuses la fatigue."); }
+    if(d==="d2"){ set("froid","opt","À éviter s'il te reste du travail explosif aujourd'hui."); }
+    if(d==="d3"){ set("compression","plus","Envisageable après un gros volume de départs et de virages, sans en attendre beaucoup."); }
+  }
+
+  if(s==="competition"){
+    if(d==="d3"){ set("froid","plus","C'est son meilleur cas d'usage : plusieurs courses rapprochées, et tu veux être frais demain. À noter : contre un placebo crédible, l'avantage n'a pas été retrouvé."); }
+    if(d==="d2"){ set("sieste","prio","Entre deux blocs de compétition, 30 min font une vraie différence."); set("froid","opt","Seulement si tu as fini de courir pour aujourd'hui."); }
+    if(d==="d0"||d==="d1"){ set("respiration","plus","C'est le moment où ça vaut le plus : redescendre le stress entre deux courses."); }
+  }
+
+  if(s==="voyage"){
+    set("compression","plus","En vol, c'est la seule chose vraiment applicable contre les jambes lourdes. L'effet reste petit et débattu.");
+    if(d!=="d0"){ set("active","plus","Bouger un peu, marcher, éviter de rester assis des heures."); }
+    set("firefly","plus","C'est son terrain le plus solide : activer la pompe du mollet quand tu es immobilisé des heures et que marcher n'est pas possible.");
+    set("veinoplus","opt","Conçu pour les pauses entre deux efforts, pas pour le transport.");
+    if(d==="d2"||d==="d3"||d==="d4"){ set("sommeil","prio","Le voyage attaque directement ton sommeil. C'est là qu'il faut rattraper."); }
+    if(d==="d2"){ set("sieste","plus","Cale-la sur l'heure locale, pas sur celle d'où tu viens."); }
+    if(d!=="d0"&&d!=="d1"){ set("froid","opt","Rien de particulier à en attendre après un vol. C'est une question de préférence."); }
+  }
+
+  if(s==="glace"&&d==="d3"){ set("froid","plus","Aucun coût pour tes adaptations sur la glace. C'est une question de confort."); }
+
+  /* --- par phase de saison --- */
+  var muscu = (s==="force"||s==="hypertrophie"||s==="puissance");
+
+  if(ph==="dev"){
+    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En bloc de développement, c'est le sommeil qui transforme le travail en progrès. Rien ne passe avant."); }
+    if(v.froid && v.froid.v!=="no"){
+      if(muscu){
+        set("froid","no","En bloc de développement, le froid après la salle freine directement ce que tu es en train de construire.");
+      }else{
+        set("froid","opt","En bloc de développement, le froid n'apporte rien à tes adaptations. À garder pour les journées vraiment lourdes, pas en routine.");
+      }
+    }
+    if(v.compression && v.compression.v==="plus" && muscu){
+      set("compression","plus","En bloc de développement, c'est du soulagement sans coût sur tes gains. L'effet est petit et les études divergent.");
+    }
+  }
+
+  if(ph==="compet"){
+    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En compétition, c'est encore le sommeil qui te rendra le plus frais au départ de la prochaine course."); }
+    if(v.froid && v.froid.v==="opt" && (d==="d2"||d==="d3"||d==="d4")){
+      set("froid","plus","En compétition, la fraîcheur passe avant les adaptations. Le froid reprend de l'intérêt dès que la fenêtre est assez longue.");
+    }else if(v.froid && v.froid.v==="no" && muscu && (d==="d3"||d==="d4")){
+      set("froid","opt","La fenêtre de 6 h est passée, et en compétition tu ne cherches plus à construire. C'est devenu acceptable.");
+    }
+    if(v.respiration && v.respiration.v==="plus"){
+      set("respiration","plus","En période de course, c'est là que la routine mentale rapporte le plus : le stress est la variable qui bouge vraiment.");
+    }
+  }
+
+  if(ph==="maintien" && muscu && (d==="d3"||d==="d4") && v.froid && v.froid.v==="no"){
+    set("froid","opt","En maintien, tu ne cherches plus à construire. Passé 6 h, le froid redevient une question de préférence.");
+  }
+
+  /* --- ce que la phase fait au reste de l'éventail --- */
+  if(ph==="dev"){
+    ["bottes","rouleau","massage"].forEach(function(id){
+      if(v[id] && v[id].v!=="no") set(id,"opt","Aucun effet sur tes adaptations. À faire seulement si ça ne gruge pas ton temps de sommeil.");
+    });
+    if(v.chaud && v.chaud.v==="opt" && (d==="d3"||d==="d4")){
+      set("chaud","plus","Sert la qualité de ta nuit, donc indirectement tout ce que tu construis en ce moment.");
+    }
+    if(v.sieste && v.sieste.v==="opt" && (d==="d3"||d==="d4")){
+      set("sieste","plus","En bloc chargé, la sieste aide à encaisser le volume sans creuser la dette de sommeil.");
+    }
+    if(v.active && v.active.v==="plus"){
+      set("active","plus","Six à dix minutes souples. Utile pour clore la séance, sans ajouter de charge.");
+    }
+  }
+
+  if(ph==="compet"){
+    ["bottes","rouleau","massage"].forEach(function(id){
+      if(v[id] && v[id].v==="opt") set(id,"opt","En compétition, se sentir bien compte. L'effet reste sur le ressenti, mais il ne coûte rien et il a sa place dans la routine.");
+    });
+    if(v.sieste && v.sieste.v==="opt"){
+      set("sieste","plus","Quand les courses s'enchaînent, chaque tranche de sommeil compte.");
+    }
+    if(v.chaud && v.chaud.v==="opt"){
+      set("chaud","plus","Pour sécuriser la nuit entre deux journées de course.");
+    }
+    if(v.passif && v.passif.v==="opt"){
+      set("passif","plus","Rester au calme entre les blocs, c'est rarement une mauvaise décision en compétition.");
+    }
+    if(v.active && v.active.v==="plus" && (d==="d0"||d==="d1")){
+      set("active","opt","En compétition, entre deux blocs rapprochés, s'asseoir vaut mieux que bouger. Garde ça très léger si tu y tiens.");
+    }
+    if(v.estim && v.estim.v==="opt"){
+      set("estim","opt","Toujours aucun effet mesuré, même en compétition. Garde-le uniquement si ça fait partie de ta routine d'avant-course.");
+    }
+  }
+
+  if(ph==="maintien"){
+    if(v.sieste && v.sieste.v==="opt" && (d==="d2"||d==="d3")){
+      set("sieste","plus","Rien à perdre, et c'est le levier le plus rentable de l'après-midi.");
+    }
+  }
+
+  /* --- garde-fou sur le niveau de preuve ---
+     Seuls le sommeil, la sieste et le repos passif entre deux courses
+     atteignent un niveau de preuve qui justifie une priorité. Le froid est
+     contredit par le seul essai contre placebo. Les données sur la routine
+     mentale sont de qualité methodologique faible. Et la meta-analyse la
+     plus rigoureuse sur la compression (27 etudes, modele a trois niveaux)
+     donne un effet petit, autour de 0,2, loin des chiffres des syntheses
+     plus anciennes. Aucune de ces trois ne peut monter en priorite. */
+  /* Plafond fondé sur la preuve, et non sur une liste choisie à la main.
+     Une stratégie n'atteint « ce qui compte le plus » que si elle réunit trois
+     conditions : un bénéfice d'au moins 3 sur 5, une preuve solide ou correcte,
+     et aucun résultat contradictoire entre les études. Le bain froid et la
+     compression échouent sur la troisième, la respiration sur la deuxième,
+     et les stratégies de confort sur la première. */
+  var RANK={no:0,opt:1,plus:2,prio:3};
+  Object.keys(v).forEach(function(id){
+    var m=MODS[id]; if(!m) return;
+    var peutPrio = m.benef>=3 && (m.preuve==="1a"||m.preuve==="1b") && !m.conteste;
+    var cap = (m.gain==="confort"||m.benef===0) ? "opt" : (peutPrio ? "prio" : "plus");
+    if(v[id].v!=="no" && RANK[v[id].v]>RANK[cap]) v[id].v=cap;
+  });
+
+  return v;
+}
+
+var PHASE_NOTE={
+  dev:"Phase de développement : on protège les adaptations. Le froid recule, le sommeil et la compression passent devant.",
+  maintien:"Phase de maintien : ni construction ni affûtage. Les contraintes se relâchent, le confort reprend sa place.",
+  compet:"Phase de compétition : la fraîcheur prime sur les adaptations. Le froid remonte et le ressenti compte vraiment."
+};
+
+var IMPACT=[
+  {band:"a",key:"fondation",t:"Fondation · gains importants",s:"Non négociable. C'est ici que se joue l'essentiel, et rien d'autre ne compense si c'est manquant.",rows:[
+    {id:"sommeil",n:"Dormir plus longtemps",d:"Ajouter environ une heure par nuit pendant quelques semaines : sprint plus rapide, gestes plus précis, meilleure humeur. C'est le plus gros effet de toute la littérature sur la récupération."},
+    {id:"sieste",n:"La sieste",d:"Trente à quatre-vingt-dix minutes en début d'après-midi améliorent la performance physique et la lucidité, et font baisser la fatigue ressentie. Prévoir une heure entre le réveil et l'effort."}
+  ]},
+  {band:"b",key:"optimisation",t:"Optimisation · gains marginaux",s:"Réels mais petits, et seulement au bon moment. Certaines de ces stratégies ont un coût sur les adaptations.",rows:[
+    {id:"froid",n:"Bain froid",d:"Réduit les courbatures et la fatigue ressentie le lendemain. C'est la seule stratégie de la liste qui peut freiner tes gains, mais uniquement après un travail contre résistance : la force comme les efforts explosifs sont touchés. Après une séance sur glace, aucun coût mesuré sur les adaptations. À noter aussi : le seul essai contre un placebo crédible n'a retrouvé aucun avantage.",varNote:"Nul après la glace · maximal après la musculation en développement"},
+    {id:"passif",n:"Repos assis entre deux courses",d:"Sur les intervalles courts, rester assis au chaud bat le retour au calme actif. C'est la consigne la plus simple et la mieux tenue de la journée de compétition."},
+    {id:"respiration",n:"Routine mentale et respiration",d:"Fait baisser le stress et l'anxiété avant une course. Les résultats vont dans le bon sens, mais la qualité méthodologique des études est inégale."},
+    {id:"compression",n:"Vêtements de compression",d:"Les méta-analyses se contredisent : certaines trouvent un petit effet sur la récupération de la force, une autre n'en trouve aucun à aucun moment. Son vrai avantage est de ne rien coûter à tes adaptations, ce qui en fait un remplacement acceptable du bain froid après la salle.",varNote:"Résultats contradictoires entre méta-analyses"},
+    {id:"active",n:"Retour au calme actif",d:"Six à dix minutes très souples en fin de séance. Jamais entre deux courses rapprochées, où rester assis vaut mieux."},
+    {id:"veinoplus",n:"VeinoPlus · stimulateur de flux sanguin",d:"À ne pas confondre avec l'électrostimulation musculaire classique. Deux essais chez des professionnels, en soccer et en handball, montrent une meilleure performance à l'effort suivant et une clairance du lactate plus rapide quand la pause est courte. C'est un outil d'entre-deux-courses, pas un outil de fin de journée.",varNote:"Validé seulement sur les pauses courtes"},
+    {id:"firefly",n:"Firefly · stimulateur du nerf fibulaire",d:"Active la pompe du mollet en stimulant le nerf fibulaire. Chez des athlètes, un essai montre moins de douleur ressentie à 24 et 48 h, mieux que des bas de compression, mais rien sur la force ni sur les marqueurs de dommage. Sa base la plus solide vient du domaine clinique, sur le retour veineux.",varNote:"Effet documenté sur le ressenti, pas sur la fonction"},
+    {id:"chaud",n:"Bain chaud le soir",d:"Améliore la qualité du sommeil quand il est pris une à deux heures avant le coucher. Rien de direct sur la performance."}
+  ]},
+  {band:"c",key:"confort",t:"Confort · gains sur le ressenti",s:"Agréable, sans risque, et sans effet mesuré sur la performance. À faire seulement si ça ne prend pas la place du sommeil.",rows:[
+    {id:"rouleau",n:"Rouleau et massage",d:"Soulagent la douleur et la raideur. Rien de mesuré sur le saut, la force ou la vitesse."},
+    {id:"bottes",n:"Bottes pneumatiques",d:"Font du bien aux jambes lourdes. Aucun effet sur la fonction musculaire."},
+    {id:"estim",n:"Électrostimulation musculaire",d:"Quatorze études, quatre cent trente-cinq participants : aucun effet retenu, ni sur les courbatures ni sur la récupération. Attention à ne pas confondre avec les stimulateurs de flux sanguin, qui visent un tout autre objectif."}
+  ]}
+];
+
+/* ---------- RENDU ---------- */
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+var phase="compet", sess="competition", delay="d3", view="prio";
+var eqOn={};
+EQUIP.forEach(function(e){eqOn[e.id]=true;});
+
+/* Les paniers répondent à « quoi faire maintenant », pas à « combien ça rapporte ».
+   L'ampleur et le niveau de preuve sont portés par les badges de chaque carte. */
+var GRP=[
+  {k:"prio",lbl:"Ce qui compte le plus maintenant",cls:"b-prio"},
+  {k:"plus",lbl:"Pertinent dans ce contexte",cls:"b-plus"},
+  {k:"opt",lbl:"Sans risque, effet sur le ressenti",cls:"b-opt"},
+  {k:"no",lbl:"À éviter aujourd'hui",cls:"b-no"}
+];
+
+function stars(n,max,cls){
+  var s='<span class="stars '+cls+'">';
+  for(var i=0;i<max;i++) s+='<i'+(i<n?' class="f"':'')+'></i>';
+  return s+'</span>';
+}
+function metaRow(id,m,s,ph){
+  var bl=blocageOf(id,s,ph);
+  return '<div class="meta">'+
+    '<div class="mrow"><span class="mk">Type de gain</span>'+
+      '<span class="gtag g-'+m.gain+'">'+esc(GAIN_LBL[m.gain])+'</span></div>'+
+    '<div class="mrow"><span class="mk">Bénéfice</span>'+
+      '<span class="mv" title="'+esc(BENEF_LBL[m.benef])+'">'+stars(m.benef,5,'ben')+'</span></div>'+
+    (bl>0 ? '<div class="mrow warn"><span class="mk">Freine l\'adaptation</span>'+
+      '<span class="mv" title="'+esc(BLOCAGE_TXT[bl])+'">'+stars(bl,5,'blo')+'</span></div>' : '')+
+    (m.conteste ? '<div class="mrow flag"><span class="mk">Résultats</span>'+
+      '<span class="mv fl" title="'+esc(m.conteste)+'">Contradictoires</span></div>' : '')+
+    '<div class="mrow"><span class="mk">Niveau de preuve</span>'+
+      '<span class="mv ev pv-'+m.preuve.replace('-','')+'" title="'+esc(PREUVE_TITLE[m.preuve])+'">'+esc(PREUVE_SHORT[m.preuve])+'</span></div>'+
+  '</div>';
+}
+function renderOut(){
+  var plan=buildPlan(sess,delay,phase);
+  var hidden=0;
+  var buckets={prio:[],plus:[],opt:[],no:[]};
+
+  Object.keys(MODS).forEach(function(id){
+    var m=MODS[id], r=plan[id];
+    if(!r) return;
+    if(m.eq && !eqOn[m.eq]){hidden++;return;}
+    buckets[r.v].push({id:id,m:m,why:r.why});
+  });
+
+  var ORDER={fondation:0,optimisation:1,confort:2}, EV={"1a":0,"1b":1,"2-3":2};
+  Object.keys(buckets).forEach(function(k){
+    buckets[k].sort(function(a,b){
+      return (ORDER[a.m.gain]-ORDER[b.m.gain]) || (b.m.benef-a.m.benef) || (EV[a.m.preuve]-EV[b.m.preuve]);
+    });
+  });
+  var topNames=buckets.prio.map(function(c){return c.m.nm.split(" · ")[0];});
+  if(view==="time") return renderTime(buckets,hidden);
+  var html='<div class="answer">'+
+    '<span class="ak">Ton plan</span>'+
+    '<span class="av">'+(topNames.length
+      ? esc(topNames.join(", "))
+      : 'Rien d\'incontournable dans cette fenêtre')+'</span>'+
+    '<span class="ad">'+esc(PHASE_NOTE[phase])+'</span>'+
+  '</div>';
+  if(!buckets.prio.length && (buckets.plus.length||buckets.opt.length)){
+    html+='<p class="phase-note" style="border-left-color:var(--ink-3)">Fais simple, et garde l\'énergie pour ce soir.</p>';
+  }
+  GRP.forEach(function(g){
+    var list=buckets[g.k];
+    if(!list.length) return;
+    html+='<div class="grp"><div class="grp-h">'+
+      '<span class="badge '+g.cls+'">'+esc(g.lbl)+'</span>'+
+      '<span class="cnt">'+list.length+'</span><span class="rest"></span></div><div class="cards">';
+    list.forEach(function(c){
+      var cls = g.k==="prio" ? " prio" : (g.k==="no" ? " no" : "");
+      html+='<div class="card'+cls+'">'+
+        '<span class="nm">'+esc(c.m.nm)+'</span>'+
+        (g.k==="no" ? "" : '<span class="tchip">'+esc(c.m.temps||"")+'</span>')+
+        metaRow(c.id,c.m,sess,phase)+
+        (g.k==="no" ? "" : '<span class="dose">'+esc(c.m.d1)+'<span>'+esc(c.m.d2)+'</span></span>')+
+        '<span class="why">'+esc(c.why)+'</span></div>';
+    });
+    html+='</div></div>';
+  });
+
+  if(!buckets.prio.length&&!buckets.plus.length&&!buckets.opt.length&&!buckets.no.length){
+    html+='<p class="empty">Coche au moins un équipement pour voir les options.</p>';
+  }
+  html+='<div class="legend">'+
+    '<span class="lg"><b>Les titres de section</b> disent quoi faire maintenant, dans ce contexte précis.</span>'+
+    '<span class="lg"><b>Les badges sur chaque carte</b> disent ce que la stratégie vaut : fondation, optimisation ou confort, puis le bénéfice attendu, le risque de freiner tes adaptations, et le niveau de preuve.</span>'+
+    '<span class="lg">Une stratégie peut donc être pertinente aujourd\'hui tout en restant un gain marginal. Les deux lectures ne disent pas la même chose.</span>'+
+  '</div>';
+  if(hidden) html+='<p class="hidden-note">'+hidden+' option'+(hidden>1?"s":"")+' masquée'+(hidden>1?"s":"")+' faute d\'équipement disponible.</p>';
+  document.getElementById("out").innerHTML=html;
+}
+
+function syncSessions(){
+  var allowed=SESS_BY_PHASE[phase];
+  if(allowed.indexOf(sess)===-1) sess=allowed[0];
+  Array.prototype.forEach.call(document.querySelectorAll("#pickSess .opt"),function(b){
+    b.hidden = allowed.indexOf(b.dataset.id)===-1;
+  });
+}
+
+function renderTime(buckets,hidden){
+  var all=[];
+  ["prio","plus","opt","no"].forEach(function(k){
+    buckets[k].forEach(function(c){ all.push({c:c,v:k,m:momentOf(c.id,delay,k)}); });
+  });
+  var prio=all.filter(function(x){return x.v==="prio";}).map(function(x){return x.c.m.nm.split(" · ")[0];});
+  var html='<div class="answer">'+
+    '<span class="ak">Ta journée</span>'+
+    '<span class="av">'+(prio.length?esc(prio.join(", ")):'Rien d\'incontournable dans cette fenêtre')+'</span>'+
+    '<span class="ad">'+esc(PHASE_NOTE[phase])+'</span></div>';
+
+  MOMENTS.forEach(function(mo){
+    var list=all.filter(function(x){return x.m===mo.k;});
+    if(!list.length) return;
+    var RK={prio:0,plus:1,opt:2,no:3};
+    list.sort(function(a,b){return RK[a.v]-RK[b.v] || b.c.m.benef-a.c.m.benef;});
+    html+='<div class="tgrp"><div class="tg-h">'+
+      '<span class="tdot'+(mo.k==="never"?" no":"")+'"></span>'+
+      '<span class="tg-l">'+esc(mo.lbl)+'</span>'+
+      '<span class="tg-s">'+esc(mo.sub)+'</span></div><div class="cards">';
+    list.forEach(function(x){
+      var cls = x.v==="prio" ? " prio" : (x.v==="no" ? " no" : "");
+      html+='<div class="card'+cls+'">'+
+        '<span class="nm">'+esc(x.c.m.nm)+'</span>'+
+        (x.v==="no" ? "" : '<span class="tchip">'+esc(x.c.m.temps||"")+'</span>')+
+        metaRow(x.c.id,x.c.m,sess,phase)+
+        (x.v==="no" ? "" : '<span class="dose">'+esc(x.c.m.d1)+'<span>'+esc(x.c.m.d2)+'</span></span>')+
+        '<span class="why">'+esc(x.c.why)+'</span></div>';
+    });
+    html+='</div></div>';
+  });
+  if(hidden) html+='<p class="hidden-note">'+hidden+' option'+(hidden>1?"s":"")+' masquée'+(hidden>1?"s":"")+' faute d\'équipement disponible.</p>';
+  document.getElementById("out").innerHTML=html;
+}
+
+function syncPressed(){
+  syncSessions();
+  eqSummary();
+  Array.prototype.forEach.call(document.querySelectorAll("#pickPhase .opt"),function(b){
+    b.setAttribute("aria-pressed", b.dataset.id===phase ? "true":"false");});
+  Array.prototype.forEach.call(document.querySelectorAll("#pickSess .opt"),function(b){
+    b.setAttribute("aria-pressed", b.dataset.id===sess ? "true":"false");});
+  Array.prototype.forEach.call(document.querySelectorAll("#pickDelay .opt"),function(b){
+    b.setAttribute("aria-pressed", b.dataset.id===delay ? "true":"false");});
+  Array.prototype.forEach.call(document.querySelectorAll("#pickEq .opt"),function(b){
+    b.setAttribute("aria-pressed", eqOn[b.dataset.id] ? "true":"false");});
+}
+
+function build(elId,items,onPick,extraClass){
+  var el=document.getElementById(elId);
+  items.forEach(function(it){
+    var b=document.createElement("button");
+    b.type="button"; b.className="opt"+(extraClass?" "+extraClass:"");
+    b.dataset.id=it.id;
+    b.innerHTML=esc(it.lbl)+(it.sub?'<span class="sub">'+esc(it.sub)+'</span>':"");
+    b.addEventListener("click",function(){onPick(it.id);syncPressed();renderOut();save();});
+    el.appendChild(b);
+  });
+}
+build("pickPhase",PHASES,function(v){phase=v;});
+build("pickSess",SESSIONS,function(v){sess=v;});
+build("pickDelay",DELAYS,function(v){delay=v;});
+build("pickEq",EQUIP,function(v){eqOn[v]=!eqOn[v];},"eq");
+
+function eqSummary(){
+  var on=EQUIP.filter(function(e){return eqOn[e.id];});
+  var el=document.getElementById("eqSum");
+  if(!el) return;
+  el.textContent = on.length===EQUIP.length ? "Tout disponible"
+    : on.length===0 ? "Rien de coché"
+    : on.length+" sur "+EQUIP.length+" : "+on.slice(0,3).map(function(e){return e.lbl;}).join(", ")+(on.length>3?"…":"");
+}
+
+var STORE="pvc-recup-v1";
+function save(){
+  try{ localStorage.setItem(STORE, JSON.stringify({phase:phase,sess:sess,delay:delay,eq:eqOn,view:view})); }catch(e){}
+}
+function load(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORE)||"null");
+    if(!s) return;
+    if(s.phase) phase=s.phase;
+    if(s.sess) sess=s.sess;
+    if(s.delay) delay=s.delay;
+    if(s.eq) EQUIP.forEach(function(e){ if(typeof s.eq[e.id]==="boolean") eqOn[e.id]=s.eq[e.id]; });
+    if(s.view) view=s.view;
+  }catch(e){}
+}
+
+document.getElementById("eqAll").addEventListener("click",function(){
+  EQUIP.forEach(function(e){eqOn[e.id]=true;});syncPressed();renderOut();save();});
+document.getElementById("eqNone").addEventListener("click",function(){
+  EQUIP.forEach(function(e){eqOn[e.id]=false;});syncPressed();renderOut();save();});
+
+/* impact list */
+(function(){
+  var h="";
+  IMPACT.forEach(function(g){
+    h+='<div class="iband '+g.band+'"><span class="t">'+esc(g.t)+'</span><span class="s">'+esc(g.s)+'</span></div>';
+    g.rows.forEach(function(r){
+      var m=MODS[r.id];
+      h+='<div class="irow"><div class="l">'+
+           '<div class="n2">'+esc(r.n)+'</div>'+
+           '<div class="d">'+esc(r.d)+'</div>'+
+         '</div><div class="r">'+
+           '<div class="rl"><span class="rk">Bénéfice</span><span title="'+esc(BENEF_LBL[m.benef])+'">'+stars(m.benef,5,"ben")+'</span></div>'+
+           '<div class="rl"><span class="rk">Freine l\'adaptation</span>'+stars(m.blocage,5,"blo")+'</div>'+
+           (r.varNote ? '<div class="vnote">'+esc(r.varNote)+'</div>' : '')+
+           '<div class="rl"><span class="rk">Niveau de preuve</span><span class="ev" title=""'+esc(PREUVE_TITLE[m.preuve])+'">'+esc(m.preuve)+'</span></div>'+
+         '</div></div>';
+    });
+  });
+  document.getElementById("impact").innerHTML=h;
+})();
+
+/* tabs */
+var tabs=[{t:"tab-plan",v:"v-plan"},{t:"tab-savoir",v:"v-savoir"}];
+tabs.forEach(function(x){
+  document.getElementById(x.t).addEventListener("click",function(){
+    tabs.forEach(function(y){
+      var sel=y.t===x.t;
+      document.getElementById(y.t).setAttribute("aria-selected",sel?"true":"false");
+      document.getElementById(y.v).hidden=!sel;
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+Array.prototype.forEach.call(document.querySelectorAll(".vbtn"),function(b){
+  b.addEventListener("click",function(){
+    view=b.dataset.view;
+    Array.prototype.forEach.call(document.querySelectorAll(".vbtn"),function(x){
+      x.setAttribute("aria-pressed", x.dataset.view===view ? "true":"false");});
+    renderOut(); save();
+  });
+});
+
+load();
+Array.prototype.forEach.call(document.querySelectorAll(".vbtn"),function(x){
+  x.setAttribute("aria-pressed", x.dataset.view===view ? "true":"false");});
+syncPressed();
+renderOut();
+</script>
+
+</body>
+</html>

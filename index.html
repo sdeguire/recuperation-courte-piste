@@ -223,7 +223,6 @@ details ol{margin:13px 0 0;padding-left:1.4em;columns:2;column-gap:28px;font-siz
 details li{break-inside:avoid;margin-bottom:4px}
 details a{color:var(--ink-2)}
 button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:.67rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
 [hidden]{display:none!important}
 
 
@@ -386,7 +385,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
       </div>
       <div class="errs">
         <div class="err"><span class="n">ERREUR 01</span><h3>Empiler les méthodes quand on dort six heures</h3><p>Rien ne remplace une heure de sommeil de plus par nuit. Règle ça avant d'ajouter quoi que ce soit.</p></div>
-        <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la musculation de musculation</h3><p>Seul vrai conflit démontré : le froid freine les gains de masse et de force. Mets de la compression à la place.</p></div>
+        <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la musculation</h3><p>Seul vrai conflit démontré : le froid freine les gains de masse et de force. Mets de la compression à la place.</p></div>
         <div class="err"><span class="n">ERREUR 03</span><h3>Trottiner entre deux courses</h3><p>Entre deux courses rapprochées, rester assis au chaud bat le retour au calme actif sur toutes les mesures.</p></div>
         <div class="err"><span class="n">ERREUR 04</span><h3>Se réveiller vingt minutes avant de patiner</h3><p>Il faut au moins une heure entre la fin de la sieste et l'effort, sinon l'inertie du réveil annule le bénéfice.</p></div>
         <div class="err"><span class="n">ERREUR 05</span><h3>Mettre l'eau plus froide en pensant faire mieux</h3><p>Entre 11 et 15 °C, l'effet est le plus net. Plus froid, c'est juste plus désagréable et moins bien toléré.</p></div>
@@ -463,11 +462,6 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
       </details>
     </div>
 
-  </div>
-
-  <div class="foot">
-    <span>Recherche PubMed et Consensus</span>
-    <span>Nutrition traitée séparément</span>
   </div>
 
 </div>
@@ -924,7 +918,7 @@ function renderOut(){
   }
   html+='<div class="legend">'+
     '<span class="lg"><b>Les titres en couleur</b> disent quoi faire maintenant, dans ce contexte précis.</span>'+
-    '<span class="lg"><b>Le bas de chaque carte</b> dit ce que la stratégie vaut vraiment : ce qu'elle rapporte, le risque pour tes gains, et la solidité de la preuve.</span>'+
+    '<span class="lg"><b>Le bas de chaque carte</b> dit ce que la stratégie vaut vraiment : ce qu\'elle rapporte, le risque pour tes gains, et la solidité de la preuve.</span>'+
     '<span class="lg">Une stratégie peut donc valoir la peine aujourd\'hui tout en restant un petit gain. Les deux lectures ne disent pas la même chose.</span>'+
   '</div>';
   if(hidden) html+='<p class="hidden-note">'+hidden+' option'+(hidden>1?"s":"")+' masquée'+(hidden>1?"s":"")+' faute d\'équipement disponible.</p>';

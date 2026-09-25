@@ -275,6 +275,19 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
   background:var(--surface-2);color:var(--ink-2);padding:3px 8px;border-radius:99px}
 .tchip::before{content:"⏱ ";opacity:.6}
 
+/* en-tête de carte : le nom et l'étiquette de gain sur la même ligne */
+.chead{display:flex;align-items:flex-start;justify-content:space-between;gap:9px}
+.chead .nm{flex:1;min-width:0}
+.chead .gtag{flex:none;margin-top:3px}
+/* l'action passe devant : plus lisible, et en premier */
+.card .dose{font-size:.86rem;padding:8px 10px;border-left:3px solid var(--red)}
+.card.no .dose{display:none}
+.card .dose span{margin-top:2px}
+/* libellé lisible à côté des pastilles, sans dépendre d'une infobulle */
+.mt{font-family:"DM Mono",monospace;font-style:normal;font-size:.6rem;color:var(--ink-3);margin-left:7px;white-space:nowrap}
+.mt.bad{color:var(--red)}
+.mv{justify-content:flex-end}
+.meta{margin-top:2px}
 /* niveau de preuve coloré selon la solidité */
 .pv-1a{color:var(--go)!important}
 .pv-1b{color:var(--ink-2)!important}
@@ -302,7 +315,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
     </div>
     <div class="hero-main">
       <h1>Récupération&nbsp;: <span class="accent">ton plan du jour</span></h1>
-      <p class="lede">Dis ce que tu viens de faire, quand tu repars, et ce que tu as sous la main. L'outil te donne l'éventail de ce qui vaut la peine, et ce qu'il vaut mieux laisser de côté aujourd'hui.</p>
+      <p class="lede">Trois réglages : ta séance, ton prochain départ, ton équipement. Tu obtiens ce qui vaut la peine aujourd'hui, et ce qu'il vaut mieux laisser de côté.</p>
     </div>
   </header>
 
@@ -356,15 +369,15 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
     <section>
       <div class="sec-head">
         <div class="sec-tag"><span class="n">01</span><h2>Ce qui compte vraiment</h2></div>
-        <p class="sub">Toutes les méthodes de récupération ne se valent pas, et l'écart est plus grand qu'on ne le croit. Voici ce que chacune apporte réellement, du plus au moins utile.</p>
+        <p class="sub">Toutes les méthodes de récupération ne se valent pas, et l'écart est plus grand qu'on ne le croit. Ce que chacune apporte réellement, du plus au moins utile.</p>
       </div>
 
       <div class="impact" id="impact"></div>
       <div class="principle">
         <span class="pk">Le principe qui relie tout ça</span>
-        <p>Refroidir après un stress d'endurance, réchauffer après un stress de force. Le froid agit sur les dommages mécaniques et la douleur, la chaleur sur la récupération métabolique et le sommeil. Appliquer la même chose toute l'année, quelle que soit la séance, c'est se priver de l'un ou payer le coût de l'autre.</p>
+        <p>Refroidir après un stress d'endurance, réchauffer après un stress de force. Le froid agit sur les dommages mécaniques et la douleur, la chaleur sur la récupération métabolique et le sommeil. Appliquer la même chose toute l'année, quelle que soit la séance, revient à se priver de l'un ou à payer le coût de l'autre.</p>
       </div>
-      <p class="hidden-note">Deux lectures par stratégie : ce qu'elle apporte, et ce qu'elle coûte à tes adaptations. Le niveau de preuve va de 1a, une méta-analyse d'essais contrôlés, à 2-3, des essais mitigés ou un consensus d'experts. Passe la souris sur le code pour le détail.</p>
+      <p class="hidden-note">Deux lectures par stratégie : ce qu'elle t'apporte, et ce qu'elle peut coûter à tes adaptations. Preuve solide veut dire plusieurs bonnes études regroupées, preuve correcte une seule bonne étude, preuve limitée des résultats encore incertains.</p>
     </section>
 
     <section>
@@ -372,11 +385,11 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
         <div class="sec-tag"><span class="n">02</span><h2>Six erreurs fréquentes</h2></div>
       </div>
       <div class="errs">
-        <div class="err"><span class="n">ERREUR 01</span><h3>Empiler les méthodes quand on dort six heures</h3><p>Rien ne remplace une heure de sommeil de plus par nuit. C'est la première chose à régler, avant d'ajouter quoi que ce soit.</p></div>
-        <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la salle de musculation</h3><p>C'est le seul vrai conflit démontré : le froid freine les gains de masse et de force. Mettre de la compression à la place.</p></div>
+        <div class="err"><span class="n">ERREUR 01</span><h3>Empiler les méthodes quand on dort six heures</h3><p>Rien ne remplace une heure de sommeil de plus par nuit. Règle ça avant d'ajouter quoi que ce soit.</p></div>
+        <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la musculation de musculation</h3><p>Seul vrai conflit démontré : le froid freine les gains de masse et de force. Mets de la compression à la place.</p></div>
         <div class="err"><span class="n">ERREUR 03</span><h3>Trottiner entre deux courses</h3><p>Entre deux courses rapprochées, rester assis au chaud bat le retour au calme actif sur toutes les mesures.</p></div>
         <div class="err"><span class="n">ERREUR 04</span><h3>Se réveiller vingt minutes avant de patiner</h3><p>Il faut au moins une heure entre la fin de la sieste et l'effort, sinon l'inertie du réveil annule le bénéfice.</p></div>
-        <div class="err"><span class="n">ERREUR 05</span><h3>Mettre l'eau plus froide en pensant faire mieux</h3><p>Entre 11 et 15 °C, c'est là que ça marche le mieux. Plus froid, c'est juste plus désagréable et moins bien toléré.</p></div>
+        <div class="err"><span class="n">ERREUR 05</span><h3>Mettre l'eau plus froide en pensant faire mieux</h3><p>Entre 11 et 15 °C, l'effet est le plus net. Plus froid, c'est juste plus désagréable et moins bien toléré.</p></div>
         <div class="err"><span class="n">ERREUR 06</span><h3>Promettre des résultats avec les bottes ou l'électrostim</h3><p>Ça fait du bien, et c'est déjà une raison valable. Mais annoncer un gain de performance décrédibilise le reste du message.</p></div>
       </div>
     </section>
@@ -490,15 +503,15 @@ var MODS={
     conteste:"Le seul essai mené contre un placebo crédible n'a retrouvé aucun avantage"},
   chaud:{nm:"Bain chaud",eq:"bainchaud",temps:"15–20 min",d1:"38 à 40 °C · 15 à 20 min",d2:"1 à 2 h avant le coucher",
     gain:"optimisation",benef:2,blocage:0,preuve:"2-3"},
-  compression:{nm:"Vêtements de compression",eq:"compression",temps:"2–48 h",d1:"15 à 25 mmHg · 2 à 48 h",d2:"Sur les jambes travaillées",
+  compression:{nm:"Vêtements de compression",eq:"compression",temps:"2–48 h",d1:"2 à 48 h · bas ou collants serrés",d2:"Sur les jambes travaillées",
     gain:"optimisation",benef:1,blocage:0,preuve:"1a",conteste:"Les méta-analyses se contredisent : certaines trouvent un petit effet, une autre n'en trouve aucun"},
   active:{nm:"Retour au calme actif",eq:null,temps:"6–10 min",d1:"6 à 10 min · très souple",d2:"Vélo ou marche, sans forcer",
     gain:"optimisation",benef:2,blocage:0,preuve:"2-3"},
   passif:{nm:"Repos assis au chaud",eq:null,temps:"la pause",d1:"Tout l'intervalle",d2:"Couvert, réactivation 10 min avant la course",
     gain:"optimisation",benef:3,blocage:0,preuve:"1b"},
-  respiration:{nm:"Respiration lente",eq:null,temps:"5–10 min",d1:"5 à 10 min · 6 resp./min",d2:"Assis ou allongé, au calme",
+  respiration:{nm:"Respiration lente",eq:null,temps:"5–10 min",d1:"5 à 10 min · 6 respirations par minute",d2:"Assis ou allongé, au calme",
     gain:"optimisation",benef:3,blocage:0,preuve:"2-3"},
-  bottes:{nm:"Bottes pneumatiques",eq:"bottes",temps:"20–30 min",d1:"20 à 30 min · 80 mmHg",d2:"Jambes, en position allongée",
+  bottes:{nm:"Bottes pneumatiques",eq:"bottes",temps:"20–30 min",d1:"20 à 30 min · pression modérée",d2:"Jambes, en position allongée",
     gain:"confort",benef:2,blocage:0,preuve:"1a"},
   rouleau:{nm:"Rouleau et balle",eq:"rouleau",temps:"5–10 min",d1:"30 à 60 s par zone",d2:"5 à 10 min au total",
     gain:"confort",benef:2,blocage:0,preuve:"1a"},
@@ -508,7 +521,7 @@ var MODS={
     gain:"confort",benef:0,blocage:0,preuve:"1a"},
   veinoplus:{nm:"VeinoPlus · flux sanguin",eq:"veinoplus",temps:"la pause",d1:"Mollets · toute la pause",d2:"Assis, entre deux courses",
     gain:"optimisation",benef:3,blocage:0,preuve:"1b"},
-  firefly:{nm:"Firefly · nerf fibulaire",eq:"firefly",temps:"1–6 h",d1:"1 à 6 h · sous le genou",d2:"Porté au repos ou en déplacement",
+  firefly:{nm:"Firefly · pompe du mollet",eq:"firefly",temps:"1–6 h",d1:"1 à 6 h · sous le genou",d2:"Porté au repos ou en déplacement",
     gain:"optimisation",benef:2,blocage:0,preuve:"1b"}
 };
 
@@ -533,9 +546,9 @@ var GAIN_LBL={fondation:"Fondation",optimisation:"Optimisation",confort:"Confort
 var PREUVE_SHORT={"1a":"Preuve solide","1b":"Preuve correcte","2-3":"Preuve limitée"};
 var BENEF_LBL=["Aucun effet mesuré","Effet très faible","Petit effet","Effet modéré","Effet marqué","Effet important"];
 var PREUVE_TITLE={
-  "1a":"Plusieurs études de qualité, regroupées et analysées ensemble. C'est le niveau de confiance le plus élevé.",
+  "1a":"Plusieurs études de qualité, regroupées et analysées ensemble. Le niveau de confiance le plus élevé.",
   "1b":"Une étude bien menée, avec tirage au sort et groupe de comparaison, mais pas encore confirmée par d'autres.",
-  "2-3":"Résultats encourageants, mais les études sont peu nombreuses ou de qualité inégale. À prendre avec prudence."
+  "2-3":"Résultats encourageants, mais les études sont peu nombreuses ou de qualité inégale. Prends-les avec prudence."
 };
 
 var PHASES=[
@@ -583,6 +596,7 @@ function blocageOf(id,s,ph){
   if(ph==="maintien") return 2;
   return 1;
 }
+var BLOCAGE_SHORT=["","Risque très faible","Risque modéré","Risque réel","Risque important","Risque maximal"];
 var BLOCAGE_TXT=[
   "Aucun risque de freiner tes adaptations dans ce contexte",
   "Risque très faible : tu ne cherches plus à construire",
@@ -603,7 +617,7 @@ function buildPlan(s,d,ph){
   set("bottes","opt","Soulage la sensation de jambes lourdes. Aucun effet sur la force ni sur la récupération réelle.");
   set("rouleau","opt","Soulage la douleur et la raideur. Aucun effet sur le saut ni sur la force.");
   set("massage","opt","Agréable et efficace sur la douleur ressentie. Rien de mesurable sur la performance.");
-  set("estim","opt","Aucun effet retenu dans les études. À garder seulement si ça fait partie de ta routine.");
+  set("estim","opt","Aucun effet retenu dans les études. Garde-le seulement si ça fait partie de ta routine.");
   set("veinoplus","opt","Testé surtout entre deux efforts rapprochés. En dehors de ce cas précis, on manque de données.");
   set("firefly","opt","Réduit la douleur ressentie à 24 et 48 h, mieux que des bas de compression. Rien de mesuré sur la force ni sur les marqueurs de dommage.");
   set("compression","plus","Les études ne s\'accordent pas sur son effet réel. Son vrai avantage est ailleurs : aucun inconvénient connu, utilisable partout.");
@@ -611,9 +625,9 @@ function buildPlan(s,d,ph){
   /* --- par délai --- */
   if(d==="d0"){
     drop("sommeil");
-    set("passif","prio","Rester assis au chaud, couvert, puis réactiver 10 min avant la course.");
-    set("veinoplus","prio","C'est précisément le scénario où il a été testé : deux essais chez des athlètes professionnels montrent une meilleure performance à la course suivante, et un retour du lactate et du pH plus rapide qu'en repos passif.");
-    set("firefly","opt","Rien à attendre sur cette fenêtre. Son effet documenté porte sur la douleur ressentie le lendemain.");
+    set("passif","prio","Reste assis au chaud, couvert. Réactive 10 min avant la course.");
+    set("veinoplus","prio","Scénario exact où il a été testé : deux essais chez des athlètes professionnels montrent une meilleure performance à la course suivante, et un retour du lactate et du pH plus rapide qu'en repos passif.");
+    set("firefly","opt","Aucun effet sur cette fenêtre. L'effet documenté porte sur la douleur du lendemain.");
     set("active","opt","Très léger si tu y tiens. Le repos passif a l'avantage sur les intervalles courts, mais sur 20 à 45 min l'écart n'est pas démontré.");
     set("froid","no","La puissance chute dès la sortie du bain, et la vitesse de conduction nerveuse met un bon moment à remonter.");
     set("chaud","no","Pas le moment, ça ajoute une contrainte thermique avant l'effort.");
@@ -623,29 +637,29 @@ function buildPlan(s,d,ph){
   }else if(d==="d1"){
     drop("sommeil");
     set("passif","plus","Reste une bonne option si tu veux simplement te poser.");
-    set("active","plus","Six à dix minutes très souples, c'est la fenêtre qui ressort le plus souvent.");
-    set("veinoplus","plus","Encore dans sa fenêtre d'usage : récupération courte entre deux efforts, avec une clairance du lactate accélérée.");
+    set("active","plus","Six à dix minutes très souples, la durée qui ressort le plus souvent.");
+    set("veinoplus","plus","Encore dans sa fenêtre d'usage : récupération courte entre deux efforts, avec un lactate qui redescend plus vite.");
     set("froid","no","Si ta prochaine course est à moins de 2 h, tu patineras encore avec une puissance diminuée.");
     set("chaud","no","Pas avant un effort, garde-le pour ce soir.");
     set("sieste","opt","Possible si tu as au moins 90 min devant toi, et 30 min maximum.");
   }else if(d==="d2"){
-    set("sieste","prio","Entre 13 h et 15 h, c'est l'option la plus rentable de la journée.");
+    set("sieste","prio","Entre 13 h et 15 h, ton meilleur rendement de la journée.");
     set("active","plus","Bon complément juste après la séance.");
     set("passif","opt","Correct, mais la sieste fait mieux sur ce créneau.");
     set("froid","plus","La fenêtre est assez longue, à condition que le prochain effort ne soit pas explosif.");
     set("chaud","opt","Plutôt en fin de journée qu'ici.");
     set("sommeil","plus","Commence à préparer la nuit dès maintenant.");
   }else if(d==="d3"){
-    set("sommeil","prio","C'est de loin ce qui te rendra le plus frais demain.");
+    set("sommeil","prio","Tu seras nettement plus frais demain.");
     set("chaud","plus","Une à deux heures avant le coucher, ça améliore la qualité du sommeil.");
     set("froid","plus","Bonne fenêtre, la nuit couvre largement le reste.");
     set("sieste","opt","Seulement si tu as un manque à rattraper, et pas trop tard.");
-    set("active","opt","Utile si la séance vient de finir, sinon rien à gagner.");
-    set("passif","opt","Rien à redire, mais rien à gagner non plus.");
+    set("active","opt","Utile si la séance vient de finir. Sinon, aucun gain.");
+    set("passif","opt","Ça ne nuit pas, ça n'apporte rien.");
   }else{
-    set("sommeil","prio","La vraie récupération se fait ici. Vise à rattraper ce que tu as perdu.");
+    set("sommeil","prio","La vraie récupération se fait ici. Rattrape ce que tu as perdu.");
     set("veinoplus","opt","Hors de sa fenêtre d'usage. Il a été testé sur des pauses courtes, pas sur des journées entières.");
-    set("froid","opt","Plus d'urgence. C'est une question de préférence maintenant.");
+    set("froid","opt","Plus d'urgence. Fais-le si tu aimes ça.");
     set("chaud","opt","Pour le confort et le sommeil, si tu aimes ça.");
     set("sieste","opt","Bienvenue si la nuit a été courte.");
     set("active","opt","Une sortie souple si tu en as envie, rien d'obligatoire.");
@@ -656,81 +670,81 @@ function buildPlan(s,d,ph){
   if(s==="hypertrophie"||s==="force"){
     if(d==="d1"||d==="d2"){
       if(s==="hypertrophie"){
-        set("froid","no","Le froid appliqué après la salle freine directement la construction de masse. C'est le conflit le mieux démontré de la littérature, et on garde par prudence une fenêtre de 4 à 6 h.");
+        set("froid","no","Le froid après la musculation freine directement la construction de masse. Le conflit le mieux démontré de la littérature. Par prudence, laisse 4 à 6 h.");
       }else{
         set("froid","no","Après des charges lourdes, le froid coûte un peu sur les gains de force, surtout s'il est appliqué sur une seule jambe. En corps entier l'effet est moins net, mais rien ne justifie de le prendre maintenant.");
       }
-      set("compression","plus","L'effet mesuré est petit et débattu, mais elle ne coûte rien à tes gains. C'est ce qui en fait le bon remplacement du bain froid ici.");
+      set("compression","plus","L'effet mesuré est petit et débattu, mais elle ne coûte rien à tes gains. Bon remplacement du bain froid ici.");
     }
     if(d==="d3"){
       set("froid","opt","La fenêtre critique de 6 h est passée. Si tu y tiens, immersion corps entier plutôt qu'une seule jambe.");
-      set("compression","plus","C'est après la musculation qu'elle a le plus de chances d'aider. L'effet reste petit et débattu, mais sans coût.");
+      set("compression","plus","Elle a le plus de chances d'aider après la musculation. L'effet reste petit et débattu, mais sans coût.");
     }
     if(d==="d4"){ set("compression","plus","Envisageable s'il reste des courbatures, sans en attendre beaucoup."); }
-    if(d==="d0"){ set("compression","plus","À enfiler dès que tu es assis. Effet petit et débattu, mais rien à perdre et ça occupe l'attente."); }
+    if(d==="d0"){ set("compression","plus","Enfile-les dès que tu es assis. Effet petit et débattu, mais ça occupe l'attente."); }
   }
 
   if(s==="puissance"){
     if(d==="d1"){ set("froid","no","Deux problèmes ici : ta puissance chute tout de suite, et sur un bloc entier le froid atténue aussi les gains sur les efforts explosifs."); set("active","opt","Très léger seulement, sinon tu creuses la fatigue."); }
-    if(d==="d2"){ set("froid","opt","À éviter s'il te reste du travail explosif aujourd'hui."); }
+    if(d==="d2"){ set("froid","opt","Évite-le s'il te reste du travail explosif aujourd'hui."); }
     if(d==="d3"){ set("compression","plus","Envisageable après un gros volume de départs et de virages, sans en attendre beaucoup."); }
   }
 
   if(s==="competition"){
-    if(d==="d3"){ set("froid","plus","C'est son meilleur cas d'usage : plusieurs courses rapprochées, et tu veux être frais demain. À noter : contre un placebo crédible, l'avantage n'a pas été retrouvé."); }
+    if(d==="d3"){ set("froid","plus","Testé exactement sur ce cas : plusieurs courses rapprochées, et tu veux être frais demain. Contre un placebo crédible, l'avantage n'a pas été retrouvé."); }
     if(d==="d2"){ set("sieste","prio","Entre deux blocs de compétition, 30 min font une vraie différence."); set("froid","opt","Seulement si tu as fini de courir pour aujourd'hui."); }
-    if(d==="d0"||d==="d1"){ set("respiration","plus","C'est le moment où ça vaut le plus : redescendre le stress entre deux courses."); }
+    if(d==="d0"||d==="d1"){ set("respiration","plus","Redescendre le stress entre deux courses rapporte plus qu'ailleurs."); }
   }
 
   if(s==="voyage"){
-    set("compression","plus","En vol, c'est la seule chose vraiment applicable contre les jambes lourdes. L'effet reste petit et débattu.");
-    if(d!=="d0"){ set("active","plus","Bouger un peu, marcher, éviter de rester assis des heures."); }
-    set("firefly","plus","C'est son terrain le plus solide : activer la pompe du mollet quand tu es immobilisé des heures et que marcher n'est pas possible.");
+    set("compression","plus","En vol, seule option vraiment applicable contre les jambes lourdes. L'effet reste petit et débattu.");
+    if(d!=="d0"){ set("active","plus","Bouge un peu, marche, évite de rester assis des heures."); }
+    set("firefly","plus","Son terrain le plus solide : activer la pompe du mollet quand tu es immobilisé des heures et que marcher est impossible.");
     set("veinoplus","opt","Conçu pour les pauses entre deux efforts, pas pour le transport.");
-    if(d==="d2"||d==="d3"||d==="d4"){ set("sommeil","prio","Le voyage attaque directement ton sommeil. C'est là qu'il faut rattraper."); }
+    if(d==="d2"||d==="d3"||d==="d4"){ set("sommeil","prio","Le vol attaque ton sommeil. Rattrape là-dessus."); }
     if(d==="d2"){ set("sieste","plus","Cale-la sur l'heure locale, pas sur celle d'où tu viens."); }
-    if(d!=="d0"&&d!=="d1"){ set("froid","opt","Rien de particulier à en attendre après un vol. C'est une question de préférence."); }
+    if(d!=="d0"&&d!=="d1"){ set("froid","opt","Rien de particulier à en attendre après un vol. Fais-le si tu aimes ça."); }
   }
 
-  if(s==="glace"&&d==="d3"){ set("froid","plus","Aucun coût pour tes adaptations sur la glace. C'est une question de confort."); }
+  if(s==="glace"&&d==="d3"){ set("froid","plus","Aucun coût pour tes adaptations sur la glace. Pur confort."); }
 
   /* --- par phase de saison --- */
   var muscu = (s==="force"||s==="hypertrophie"||s==="puissance");
 
   if(ph==="dev"){
-    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En bloc de développement, c'est le sommeil qui transforme le travail en progrès. Rien ne passe avant."); }
+    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En bloc de développement, le sommeil transforme le travail en progrès. Rien ne passe avant."); }
     if(v.froid && v.froid.v!=="no"){
       if(muscu){
-        set("froid","no","En bloc de développement, le froid après la salle freine directement ce que tu es en train de construire.");
+        set("froid","no","En bloc de développement, le froid après la musculation freine directement ce que tu es en train de construire.");
       }else{
-        set("froid","opt","En bloc de développement, le froid n'apporte rien à tes adaptations. À garder pour les journées vraiment lourdes, pas en routine.");
+        set("froid","opt","En bloc de développement, le froid n'apporte rien à tes adaptations. Garde-le pour les journées vraiment lourdes, pas en routine.");
       }
     }
     if(v.compression && v.compression.v==="plus" && muscu){
-      set("compression","plus","En bloc de développement, c'est du soulagement sans coût sur tes gains. L'effet est petit et les études divergent.");
+      set("compression","plus","En bloc de développement, soulagement sans coût sur tes gains. L'effet est petit et les études divergent.");
     }
   }
 
   if(ph==="compet"){
-    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En compétition, c'est encore le sommeil qui te rendra le plus frais au départ de la prochaine course."); }
+    if(d!=="d0"&&d!=="d1"){ set("sommeil","prio","En compétition, le sommeil te rendra encore le plus frais au départ de la prochaine course."); }
     if(v.froid && v.froid.v==="opt" && (d==="d2"||d==="d3"||d==="d4")){
       set("froid","plus","En compétition, la fraîcheur passe avant les adaptations. Le froid reprend de l'intérêt dès que la fenêtre est assez longue.");
     }else if(v.froid && v.froid.v==="no" && muscu && (d==="d3"||d==="d4")){
-      set("froid","opt","La fenêtre de 6 h est passée, et en compétition tu ne cherches plus à construire. C'est devenu acceptable.");
+      set("froid","opt","La fenêtre de 6 h est passée, et en compétition tu ne cherches plus à construire. Acceptable maintenant.");
     }
     if(v.respiration && v.respiration.v==="plus"){
-      set("respiration","plus","En période de course, c'est là que la routine mentale rapporte le plus : le stress est la variable qui bouge vraiment.");
+      set("respiration","plus","En période de course, la routine mentale rapporte le plus : le stress est la variable qui bouge vraiment.");
     }
   }
 
   if(ph==="maintien" && muscu && (d==="d3"||d==="d4") && v.froid && v.froid.v==="no"){
-    set("froid","opt","En maintien, tu ne cherches plus à construire. Passé 6 h, le froid redevient une question de préférence.");
+    set("froid","opt","En maintien, tu ne cherches plus à construire. Passé 6 h, prends-le si tu aimes ça.");
   }
 
   /* --- ce que la phase fait au reste de l'éventail --- */
   if(ph==="dev"){
     ["bottes","rouleau","massage"].forEach(function(id){
-      if(v[id] && v[id].v!=="no") set(id,"opt","Aucun effet sur tes adaptations. À faire seulement si ça ne gruge pas ton temps de sommeil.");
+      if(v[id] && v[id].v!=="no") set(id,"opt","Aucun effet sur tes adaptations. Fais-le seulement si ça ne gruge pas ton sommeil.");
     });
     if(v.chaud && v.chaud.v==="opt" && (d==="d3"||d==="d4")){
       set("chaud","plus","Sert la qualité de ta nuit, donc indirectement tout ce que tu construis en ce moment.");
@@ -754,7 +768,7 @@ function buildPlan(s,d,ph){
       set("chaud","plus","Pour sécuriser la nuit entre deux journées de course.");
     }
     if(v.passif && v.passif.v==="opt"){
-      set("passif","plus","Rester au calme entre les blocs, c'est rarement une mauvaise décision en compétition.");
+      set("passif","plus","Rester au calme entre les blocs est rarement une mauvaise décision en compétition.");
     }
     if(v.active && v.active.v==="plus" && (d==="d0"||d==="d1")){
       set("active","opt","En compétition, entre deux blocs rapprochés, s'asseoir vaut mieux que bouger. Garde ça très léger si tu y tiens.");
@@ -766,7 +780,7 @@ function buildPlan(s,d,ph){
 
   if(ph==="maintien"){
     if(v.sieste && v.sieste.v==="opt" && (d==="d2"||d==="d3")){
-      set("sieste","plus","Rien à perdre, et c'est le levier le plus rentable de l'après-midi.");
+      set("sieste","plus","Meilleur rendement de ton après-midi.");
     }
   }
 
@@ -796,27 +810,27 @@ function buildPlan(s,d,ph){
 }
 
 var PHASE_NOTE={
-  dev:"Phase de développement : on protège les adaptations. Le froid recule, le sommeil et la compression passent devant.",
-  maintien:"Phase de maintien : ni construction ni affûtage. Les contraintes se relâchent, le confort reprend sa place.",
-  compet:"Phase de compétition : la fraîcheur prime sur les adaptations. Le froid remonte et le ressenti compte vraiment."
+  dev:"Tu construis. Le sommeil passe avant tout, et le froid peut te coûter des gains.",
+  maintien:"Tu entretiens. Moins de contraintes, tu peux te faire du bien sans rien perdre.",
+  compet:"Tu performes. Être frais compte plus que construire."
 };
 
 var IMPACT=[
-  {band:"a",key:"fondation",t:"Fondation · gains importants",s:"Non négociable. C'est ici que se joue l'essentiel, et rien d'autre ne compense si c'est manquant.",rows:[
-    {id:"sommeil",n:"Dormir plus longtemps",d:"Ajouter environ une heure par nuit pendant quelques semaines : sprint plus rapide, gestes plus précis, meilleure humeur. C'est le plus gros effet de toute la littérature sur la récupération."},
-    {id:"sieste",n:"La sieste",d:"Trente à quatre-vingt-dix minutes en début d'après-midi améliorent la performance physique et la lucidité, et font baisser la fatigue ressentie. Prévoir une heure entre le réveil et l'effort."}
+  {band:"a",key:"fondation",t:"Fondation · gains importants",s:"Non négociable. L'essentiel se joue ici, et rien d'autre ne compense un manque.",rows:[
+    {id:"sommeil",n:"Dormir plus longtemps",d:"Ajouter environ une heure par nuit pendant quelques semaines : sprint plus rapide, gestes plus précis, meilleure humeur. Le plus gros effet de toute la littérature sur la récupération."},
+    {id:"sieste",n:"La sieste",d:"Trente à quatre-vingt-dix minutes en début d'après-midi améliorent la performance physique et la lucidité, et font baisser la fatigue ressentie. Prévois une heure entre le réveil et l'effort."}
   ]},
   {band:"b",key:"optimisation",t:"Optimisation · gains marginaux",s:"Réels mais petits, et seulement au bon moment. Certaines de ces stratégies ont un coût sur les adaptations.",rows:[
-    {id:"froid",n:"Bain froid",d:"Réduit les courbatures et la fatigue ressentie le lendemain. C'est la seule stratégie de la liste qui peut freiner tes gains, mais uniquement après un travail contre résistance : la force comme les efforts explosifs sont touchés. Après une séance sur glace, aucun coût mesuré sur les adaptations. À noter aussi : le seul essai contre un placebo crédible n'a retrouvé aucun avantage.",varNote:"Nul après la glace · maximal après la musculation en développement"},
-    {id:"passif",n:"Repos assis entre deux courses",d:"Sur les intervalles courts, rester assis au chaud bat le retour au calme actif. C'est la consigne la plus simple et la mieux tenue de la journée de compétition."},
-    {id:"respiration",n:"Routine mentale et respiration",d:"Fait baisser le stress et l'anxiété avant une course. Les résultats vont dans le bon sens, mais la qualité méthodologique des études est inégale."},
-    {id:"compression",n:"Vêtements de compression",d:"Les méta-analyses se contredisent : certaines trouvent un petit effet sur la récupération de la force, une autre n'en trouve aucun à aucun moment. Son vrai avantage est de ne rien coûter à tes adaptations, ce qui en fait un remplacement acceptable du bain froid après la salle.",varNote:"Résultats contradictoires entre méta-analyses"},
+    {id:"froid",n:"Bain froid",d:"Réduit les courbatures et la fatigue ressentie le lendemain. Seule stratégie de la liste qui peut freiner tes gains, mais seulement après la musculation : la force comme les efforts explosifs sont touchés. Après une séance sur glace, aucun coût mesuré sur les adaptations. Attention : le seul essai contre un placebo crédible n'a retrouvé aucun avantage.",varNote:"Nul après la glace · maximal après la musculation en développement"},
+    {id:"passif",n:"Repos assis entre deux courses",d:"Sur les intervalles courts, rester assis au chaud bat le retour au calme actif. La consigne la plus simple et la mieux tenue de la journée de compétition."},
+    {id:"respiration",n:"Routine mentale et respiration",d:"Fait baisser le stress et l'anxiété avant une course. Les résultats vont dans le bon sens, mais les études sont de qualité inégale."},
+    {id:"compression",n:"Vêtements de compression",d:"Les méta-analyses se contredisent : certaines trouvent un petit effet sur la récupération de la force, une autre n'en trouve aucun à aucun moment. Son vrai avantage est de ne rien coûter à tes adaptations, ce qui en fait un remplacement acceptable du bain froid après la musculation.",varNote:"Résultats contradictoires entre méta-analyses"},
     {id:"active",n:"Retour au calme actif",d:"Six à dix minutes très souples en fin de séance. Jamais entre deux courses rapprochées, où rester assis vaut mieux."},
-    {id:"veinoplus",n:"VeinoPlus · stimulateur de flux sanguin",d:"À ne pas confondre avec l'électrostimulation musculaire classique. Deux essais chez des professionnels, en soccer et en handball, montrent une meilleure performance à l'effort suivant et une clairance du lactate plus rapide quand la pause est courte. C'est un outil d'entre-deux-courses, pas un outil de fin de journée.",varNote:"Validé seulement sur les pauses courtes"},
-    {id:"firefly",n:"Firefly · stimulateur du nerf fibulaire",d:"Active la pompe du mollet en stimulant le nerf fibulaire. Chez des athlètes, un essai montre moins de douleur ressentie à 24 et 48 h, mieux que des bas de compression, mais rien sur la force ni sur les marqueurs de dommage. Sa base la plus solide vient du domaine clinique, sur le retour veineux.",varNote:"Effet documenté sur le ressenti, pas sur la fonction"},
+    {id:"veinoplus",n:"VeinoPlus · stimulateur de flux sanguin",d:"À ne pas confondre avec l'électrostimulation musculaire classique. Deux essais chez des professionnels, en soccer et en handball, montrent une meilleure performance à l'effort suivant et un lactate qui redescend plus vite quand la pause est courte. Outil d'entre-deux-courses, pas de fin de journée.",varNote:"Validé seulement sur les pauses courtes"},
+    {id:"firefly",n:"Firefly · pompe du mollet",d:"Active la pompe du mollet en stimulant le nerf fibulaire. Chez des athlètes, un essai montre moins de douleur ressentie à 24 et 48 h, mieux que des bas de compression, mais rien sur la force ni sur les marqueurs de dommage. Sa base la plus solide vient du domaine clinique, sur le retour veineux.",varNote:"Effet documenté sur le ressenti, pas sur la fonction"},
     {id:"chaud",n:"Bain chaud le soir",d:"Améliore la qualité du sommeil quand il est pris une à deux heures avant le coucher. Rien de direct sur la performance."}
   ]},
-  {band:"c",key:"confort",t:"Confort · gains sur le ressenti",s:"Agréable, sans risque, et sans effet mesuré sur la performance. À faire seulement si ça ne prend pas la place du sommeil.",rows:[
+  {band:"c",key:"confort",t:"Confort · gains sur le ressenti",s:"Agréable, sans risque, et sans effet mesuré sur la performance. Fais-le seulement si ça ne prend pas la place du sommeil.",rows:[
     {id:"rouleau",n:"Rouleau et massage",d:"Soulagent la douleur et la raideur. Rien de mesuré sur le saut, la force ou la vitesse."},
     {id:"bottes",n:"Bottes pneumatiques",d:"Font du bien aux jambes lourdes. Aucun effet sur la fonction musculaire."},
     {id:"estim",n:"Électrostimulation musculaire",d:"Quatorze études, quatre cent trente-cinq participants : aucun effet retenu, ni sur les courbatures ni sur la récupération. Attention à ne pas confondre avec les stimulateurs de flux sanguin, qui visent un tout autre objectif."}
@@ -834,8 +848,8 @@ EQUIP.forEach(function(e){eqOn[e.id]=true;});
    L'ampleur et le niveau de preuve sont portés par les badges de chaque carte. */
 var GRP=[
   {k:"prio",lbl:"Ce qui compte le plus maintenant",cls:"b-prio"},
-  {k:"plus",lbl:"Pertinent dans ce contexte",cls:"b-plus"},
-  {k:"opt",lbl:"Sans risque, effet sur le ressenti",cls:"b-opt"},
+  {k:"plus",lbl:"Ça vaut la peine aujourd'hui",cls:"b-plus"},
+  {k:"opt",lbl:"Ça fait du bien, sans risque",cls:"b-opt"},
   {k:"no",lbl:"À éviter aujourd'hui",cls:"b-no"}
 ];
 
@@ -847,15 +861,13 @@ function stars(n,max,cls){
 function metaRow(id,m,s,ph){
   var bl=blocageOf(id,s,ph);
   return '<div class="meta">'+
-    '<div class="mrow"><span class="mk">Type de gain</span>'+
-      '<span class="gtag g-'+m.gain+'">'+esc(GAIN_LBL[m.gain])+'</span></div>'+
-    '<div class="mrow"><span class="mk">Bénéfice</span>'+
-      '<span class="mv" title="'+esc(BENEF_LBL[m.benef])+'">'+stars(m.benef,5,'ben')+'</span></div>'+
-    (bl>0 ? '<div class="mrow warn"><span class="mk">Freine l\'adaptation</span>'+
-      '<span class="mv" title="'+esc(BLOCAGE_TXT[bl])+'">'+stars(bl,5,'blo')+'</span></div>' : '')+
-    (m.conteste ? '<div class="mrow flag"><span class="mk">Résultats</span>'+
-      '<span class="mv fl" title="'+esc(m.conteste)+'">Contradictoires</span></div>' : '')+
-    '<div class="mrow"><span class="mk">Niveau de preuve</span>'+
+    '<div class="mrow"><span class="mk">Ce que ça rapporte</span>'+
+      '<span class="mv">'+stars(m.benef,5,'ben')+'<em class="mt">'+esc(BENEF_LBL[m.benef])+'</em></span></div>'+
+    (bl>0 ? '<div class="mrow warn"><span class="mk">Risque pour tes gains</span>'+
+      '<span class="mv" title="'+esc(BLOCAGE_TXT[bl])+'">'+stars(bl,5,'blo')+'<em class="mt bad">'+esc(BLOCAGE_SHORT[bl])+'</em></span></div>' : '')+
+    (m.conteste ? '<div class="mrow flag"><span class="mk">Les études</span>'+
+      '<span class="mv fl" title="'+esc(m.conteste)+'">ne s\'accordent pas</span></div>' : '')+
+    '<div class="mrow"><span class="mk">Preuve</span>'+
       '<span class="mv ev pv-'+m.preuve.replace('-','')+'" title="'+esc(PREUVE_TITLE[m.preuve])+'">'+esc(PREUVE_SHORT[m.preuve])+'</span></div>'+
   '</div>';
 }
@@ -898,11 +910,11 @@ function renderOut(){
     list.forEach(function(c){
       var cls = g.k==="prio" ? " prio" : (g.k==="no" ? " no" : "");
       html+='<div class="card'+cls+'">'+
-        '<span class="nm">'+esc(c.m.nm)+'</span>'+
-        (g.k==="no" ? "" : '<span class="tchip">'+esc(c.m.temps||"")+'</span>')+
-        metaRow(c.id,c.m,sess,phase)+
+        '<div class="chead"><span class="nm">'+esc(c.m.nm)+'</span>'+
+          '<span class="gtag g-'+c.m.gain+'">'+esc(GAIN_LBL[c.m.gain])+'</span></div>'+
         (g.k==="no" ? "" : '<span class="dose">'+esc(c.m.d1)+'<span>'+esc(c.m.d2)+'</span></span>')+
-        '<span class="why">'+esc(c.why)+'</span></div>';
+        '<span class="why">'+esc(c.why)+'</span>'+
+        metaRow(c.id,c.m,sess,phase)+'</div>';
     });
     html+='</div></div>';
   });
@@ -911,9 +923,9 @@ function renderOut(){
     html+='<p class="empty">Coche au moins un équipement pour voir les options.</p>';
   }
   html+='<div class="legend">'+
-    '<span class="lg"><b>Les titres de section</b> disent quoi faire maintenant, dans ce contexte précis.</span>'+
-    '<span class="lg"><b>Les badges sur chaque carte</b> disent ce que la stratégie vaut : fondation, optimisation ou confort, puis le bénéfice attendu, le risque de freiner tes adaptations, et le niveau de preuve.</span>'+
-    '<span class="lg">Une stratégie peut donc être pertinente aujourd\'hui tout en restant un gain marginal. Les deux lectures ne disent pas la même chose.</span>'+
+    '<span class="lg"><b>Les titres en couleur</b> disent quoi faire maintenant, dans ce contexte précis.</span>'+
+    '<span class="lg"><b>Le bas de chaque carte</b> dit ce que la stratégie vaut vraiment : ce qu'elle rapporte, le risque pour tes gains, et la solidité de la preuve.</span>'+
+    '<span class="lg">Une stratégie peut donc valoir la peine aujourd\'hui tout en restant un petit gain. Les deux lectures ne disent pas la même chose.</span>'+
   '</div>';
   if(hidden) html+='<p class="hidden-note">'+hidden+' option'+(hidden>1?"s":"")+' masquée'+(hidden>1?"s":"")+' faute d\'équipement disponible.</p>';
   document.getElementById("out").innerHTML=html;
@@ -950,11 +962,11 @@ function renderTime(buckets,hidden){
     list.forEach(function(x){
       var cls = x.v==="prio" ? " prio" : (x.v==="no" ? " no" : "");
       html+='<div class="card'+cls+'">'+
-        '<span class="nm">'+esc(x.c.m.nm)+'</span>'+
-        (x.v==="no" ? "" : '<span class="tchip">'+esc(x.c.m.temps||"")+'</span>')+
-        metaRow(x.c.id,x.c.m,sess,phase)+
+        '<div class="chead"><span class="nm">'+esc(x.c.m.nm)+'</span>'+
+          '<span class="gtag g-'+x.c.m.gain+'">'+esc(GAIN_LBL[x.c.m.gain])+'</span></div>'+
         (x.v==="no" ? "" : '<span class="dose">'+esc(x.c.m.d1)+'<span>'+esc(x.c.m.d2)+'</span></span>')+
-        '<span class="why">'+esc(x.c.why)+'</span></div>';
+        '<span class="why">'+esc(x.c.why)+'</span>'+
+        metaRow(x.c.id,x.c.m,sess,phase)+'</div>';
     });
     html+='</div></div>';
   });
@@ -1032,10 +1044,10 @@ document.getElementById("eqNone").addEventListener("click",function(){
            '<div class="n2">'+esc(r.n)+'</div>'+
            '<div class="d">'+esc(r.d)+'</div>'+
          '</div><div class="r">'+
-           '<div class="rl"><span class="rk">Bénéfice</span><span title="'+esc(BENEF_LBL[m.benef])+'">'+stars(m.benef,5,"ben")+'</span></div>'+
-           '<div class="rl"><span class="rk">Freine l\'adaptation</span>'+stars(m.blocage,5,"blo")+'</div>'+
+           '<div class="rl"><span class="rk">Ce que ça rapporte</span><span title="'+esc(BENEF_LBL[m.benef])+'">'+stars(m.benef,5,"ben")+'</span></div>'+
+           (m.blocage>0 ? '<div class="rl"><span class="rk">Risque pour tes gains</span>'+stars(m.blocage,5,"blo")+'</div>' : '')+
            (r.varNote ? '<div class="vnote">'+esc(r.varNote)+'</div>' : '')+
-           '<div class="rl"><span class="rk">Niveau de preuve</span><span class="ev" title=""'+esc(PREUVE_TITLE[m.preuve])+'">'+esc(m.preuve)+'</span></div>'+
+           '<div class="rl"><span class="rk">Preuve</span><span class="ev" title="'+esc(PREUVE_TITLE[m.preuve])+'">'+esc(PREUVE_SHORT[m.preuve])+'</span></div>'+
          '</div></div>';
     });
   });

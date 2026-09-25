@@ -388,7 +388,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
         <div class="err"><span class="n">ERREUR 02</span><h3>Le bain froid juste après la musculation</h3><p>Seul vrai conflit démontré : le froid freine les gains de masse et de force. Mets de la compression à la place.</p></div>
         <div class="err"><span class="n">ERREUR 03</span><h3>Trottiner entre deux courses</h3><p>Entre deux courses rapprochées, rester assis au chaud bat le retour au calme actif sur toutes les mesures.</p></div>
         <div class="err"><span class="n">ERREUR 04</span><h3>Se réveiller vingt minutes avant de patiner</h3><p>Il faut au moins une heure entre la fin de la sieste et l'effort, sinon l'inertie du réveil annule le bénéfice.</p></div>
-        <div class="err"><span class="n">ERREUR 05</span><h3>Mettre l'eau plus froide en pensant faire mieux</h3><p>Entre 11 et 15 °C, l'effet est le plus net. Plus froid, c'est juste plus désagréable et moins bien toléré.</p></div>
+        <div class="err"><span class="n">ERREUR 05</span><h3>Baisser la température sans réduire le temps</h3><p>Aucune plage entre 5 et 15 °C ne ressort comme supérieure. Ce qui compte, c'est la dose totale de froid : plus l'eau est froide, moins tu restes longtemps. Compte 1,1 minute par degré.</p></div>
         <div class="err"><span class="n">ERREUR 06</span><h3>Promettre des résultats avec les bottes ou l'électrostim</h3><p>Ça fait du bien, et c'est déjà une raison valable. Mais annoncer un gain de performance décrédibilise le reste du message.</p></div>
       </div>
     </section>
@@ -398,13 +398,21 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var
       <p>Aucune étude ne porte sur la courte piste : tout ceci est transposé du sport collectif, de la course et du cyclisme, et le format à courses multiples rapprochées n'a jamais été étudié pour lui-même. Les participants sont des hommes à 85 % dans les travaux sur le bain froid et à 100 % dans ceux sur la sieste. Le parasport n'est pas couvert, et les repères de température ne s'y transposent pas en cas de lésion médullaire ou d'amputation. Enfin, presque toutes ces études comparent au simple repos et non à un placebo, ce qui veut dire qu'une partie de l'effet mesuré vient de l'attente elle-même.</p>
 
       <details>
-        <summary>Références · 58 revues systématiques, méta-analyses et essais contrôlés</summary>
+        <summary>Références · 66 revues systématiques, méta-analyses et essais contrôlés</summary>
         <ol>
           <li>Bieuzen F. et al. (2014). Low-frequency electrical stimulation during short-term recovery and subsequent high-intensity exercise. <em>Appl Physiol Nutr Metab</em>.</li>
         <li>Bieuzen F. et al. (2012). Recovery after high-intensity intermittent exercise in elite soccer players using VeinoPlus Sport. <em>J Athl Train</em>.</li>
         <li>Ferguson R. et al. (2014). NMES via the peroneal nerve is superior to graduated compression socks in reducing perceived muscle soreness. <em>Eur J Appl Physiol</em>.</li>
         <li>Stacey M. et al. (2024). Continuous muscle pump activation by common peroneal nerve NMES: position paper. <em>Int Wound J</em>.</li>
         <li>Santos M. et al. (2025). NMES on symptoms of chronic venous disease: systematic review. <em>Vasc Med</em>.</li>
+        <li>Davis H. et al. (2020). Effect of sports massage on performance and recovery: systematic review and meta-analysis of 29 trials. <em>BMJ Open Sport Exerc Med</em>.</li>
+        <li>Poppendieck W. et al. (2016). Massage and performance recovery: meta-analytical review. <em>Sports Med</em>.</li>
+        <li>Guo J. et al. (2017). Massage alleviates delayed onset muscle soreness: systematic review and meta-analysis. <em>Front Physiol</em>.</li>
+        <li>Silva A.C. et al. (2020). Sleep extension in athletes: what we know so far, a systematic review. <em>Sleep Med</em>.</li>
+        <li>Hagner-Derengowska M. et al. (2026). Post-exercise compression garments in endurance athletes: systematic review and meta-analysis. <em>Front Physiol</em>.</li>
+        <li>Haghayegh S. et al. (2019). Before-bedtime passive body heating by warm shower or bath to improve sleep: systematic review and meta-analysis. <em>Sleep Med Rev</em>.</li>
+        <li>Chen H.-Q. et al. (2026). Water immersion thermotherapy and sleep quality: systematic review and meta-analysis of RCTs. <em>Int J Biometeorol</em>.</li>
+        <li>Jeon Y. et al. (2026). Temperature-dependent effects of post-exercise cold-water immersion: systematic review and meta-analysis of 52 studies. <em>BMC Sports Sci Med Rehabil</em>.</li>
         <li>Wang H. et al. (2025). Doses of cold water immersion (duration and temperature): network meta-analysis of 55 RCTs. <em>Front Physiol</em>.</li>
         <li>Négyesi J. et al. (2022). Can compression garments reduce the deleterious effects of exercise on muscle strength? Meta-analyses. <em>Sports Med</em>.</li>
         <li>Malta E.S. et al. (2020). Regular cold-water immersion and training-induced changes in strength and endurance: meta-analysis. <em>Sports Med</em>.</li>
@@ -489,14 +497,15 @@ var EQUIP=[
                2-3 ECR mitigés ou consensus d'experts */
 var MODS={
   sommeil:{nm:"Sommeil long",eq:null,temps:"la nuit",d1:"9 à 10 h au lit",d2:"Coucher avancé, chambre fraîche et noire",
-    gain:"fondation",benef:5,blocage:0,preuve:"1a"},
+    gain:"fondation",benef:5,blocage:0,preuve:"1b"},
   sieste:{nm:"Sieste",eq:"calme",temps:"30–90 min",d1:"30 à 90 min",d2:"Entre 13 h et 15 h, réveil 60 min avant l'effort",
-    gain:"fondation",benef:5,blocage:0,preuve:"1a"},
-  froid:{nm:"Bain froid",eq:"bainfroid",temps:"10–15 min",d1:"11 à 15 °C · 10 à 15 min",d2:"Jusqu'aux hanches, dans les 30 min",
+    gain:"fondation",benef:4,blocage:0,preuve:"1a"},
+  froid:{nm:"Bain froid",eq:"bainfroid",temps:"9–15 min",d1:"8 à 14 °C · 1,1 min par degré",d2:"10 °C → 11 min · jusqu'aux hanches, dans les 30 min",
     gain:"optimisation",benef:3,blocage:5,blocageVar:true,preuve:"1a",
     conteste:"Le seul essai mené contre un placebo crédible n'a retrouvé aucun avantage"},
-  chaud:{nm:"Bain chaud",eq:"bainchaud",temps:"15–20 min",d1:"38 à 40 °C · 15 à 20 min",d2:"1 à 2 h avant le coucher",
-    gain:"optimisation",benef:2,blocage:0,preuve:"2-3"},
+  chaud:{nm:"Bain chaud",eq:"bainchaud",temps:"10–20 min",d1:"40 à 42 °C · 10 à 20 min",d2:"1 à 2 h avant le coucher",
+    gain:"optimisation",benef:2,blocage:0,preuve:"2-3",
+    conteste:"Une méta-analyse trouve un endormissement plus rapide et un sommeil jugé meilleur, une autre ne retrouve rien sur ces deux mesures"},
   compression:{nm:"Vêtements de compression",eq:"compression",temps:"2–48 h",d1:"2 à 48 h · bas ou collants serrés",d2:"Sur les jambes travaillées",
     gain:"optimisation",benef:1,blocage:0,preuve:"1a",conteste:"Les méta-analyses se contredisent : certaines trouvent un petit effet, une autre n'en trouve aucun"},
   active:{nm:"Retour au calme actif",eq:null,temps:"6–10 min",d1:"6 à 10 min · très souple",d2:"Vélo ou marche, sans forcer",
@@ -505,12 +514,15 @@ var MODS={
     gain:"optimisation",benef:3,blocage:0,preuve:"1b"},
   respiration:{nm:"Respiration lente",eq:null,temps:"5–10 min",d1:"5 à 10 min · 6 respirations par minute",d2:"Assis ou allongé, au calme",
     gain:"optimisation",benef:3,blocage:0,preuve:"2-3"},
-  bottes:{nm:"Bottes pneumatiques",eq:"bottes",temps:"20–30 min",d1:"20 à 30 min · pression modérée",d2:"Jambes, en position allongée",
-    gain:"confort",benef:2,blocage:0,preuve:"1a"},
+  bottes:{nm:"Bottes pneumatiques",eq:"bottes",temps:"20–30 min",d1:"20 à 30 min · pression modérée",d2:"Jambes allongées · 80 mmHg sur l appareil",
+    gain:"confort",benef:2,blocage:0,preuve:"1a",
+    conteste:"Deux méta-analyses trouvent un petit effet sur la douleur, une troisième n en trouve aucun à 24 h"},
   rouleau:{nm:"Rouleau et balle",eq:"rouleau",temps:"5–10 min",d1:"30 à 60 s par zone",d2:"5 à 10 min au total",
-    gain:"confort",benef:2,blocage:0,preuve:"1a"},
-  massage:{nm:"Massage",eq:"massage",temps:"15–30 min",d1:"15 à 30 min",d2:"Pression modérée",
-    gain:"confort",benef:2,blocage:0,preuve:"1a"},
+    gain:"confort",benef:2,blocage:0,preuve:"1a",
+    conteste:"Deux méta-analyses trouvent un petit effet sur la douleur, une troisième n en trouve aucun"},
+  massage:{nm:"Massage",eq:"massage",temps:"5–12 min",d1:"5 à 12 min par groupe",d2:"Pression modérée · court vaut mieux que long",
+    gain:"confort",benef:2,blocage:0,preuve:"1a",
+    conteste:"La plus grande méta-analyse ne trouve aucun effet sur la force ni le saut, une autre en trouve un petit"},
   estim:{nm:"Électrostimulation musculaire",eq:"estim",temps:"20–40 min",d1:"20 à 40 min · basse fréquence",d2:"Sur le muscle travaillé",
     gain:"confort",benef:0,blocage:0,preuve:"1a"},
   veinoplus:{nm:"VeinoPlus · flux sanguin",eq:"veinoplus",temps:"la pause",d1:"Mollets · toute la pause",d2:"Assis, entre deux courses",
@@ -811,8 +823,8 @@ var PHASE_NOTE={
 
 var IMPACT=[
   {band:"a",key:"fondation",t:"Fondation · gains importants",s:"Non négociable. L'essentiel se joue ici, et rien d'autre ne compense un manque.",rows:[
-    {id:"sommeil",n:"Dormir plus longtemps",d:"Ajouter environ une heure par nuit pendant quelques semaines : sprint plus rapide, gestes plus précis, meilleure humeur. Le plus gros effet de toute la littérature sur la récupération."},
-    {id:"sieste",n:"La sieste",d:"Trente à quatre-vingt-dix minutes en début d'après-midi améliorent la performance physique et la lucidité, et font baisser la fatigue ressentie. Prévois une heure entre le réveil et l'effort."}
+    {id:"sommeil",n:"Dormir plus longtemps",d:"Manquer de sommeil dégrade le sprint, la précision et l humeur : c est le résultat le plus constant de toute la littérature. Ajouter du sommeil est beaucoup moins étudié. La revue de référence ne retient que deux essais, de qualité faible à modérée, avec des gains marqués sur le sprint et la précision chez des basketteurs. La direction est claire, la taille de l effet l est moins.",varNote:"Peu d essais sur l ajout de sommeil"},
+    {id:"sieste",n:"La sieste",d:"Trente à quatre-vingt-dix minutes en début d après-midi. La méta-analyse de dix-huit études trouve un gain net sur la course navette répétée et sur la fatigue ressentie, aucun effet sur la force maximale, et rien de concluant sur le sprint. Prévois une heure entre le réveil et l effort.",varNote:"Gain sur la répétition d efforts, pas sur la force"}
   ]},
   {band:"b",key:"optimisation",t:"Optimisation · gains marginaux",s:"Réels mais petits, et seulement au bon moment. Certaines de ces stratégies ont un coût sur les adaptations.",rows:[
     {id:"froid",n:"Bain froid",d:"Réduit les courbatures et la fatigue ressentie le lendemain. Seule stratégie de la liste qui peut freiner tes gains, mais seulement après la musculation : la force comme les efforts explosifs sont touchés. Après une séance sur glace, aucun coût mesuré sur les adaptations. Attention : le seul essai contre un placebo crédible n'a retrouvé aucun avantage.",varNote:"Nul après la glace · maximal après la musculation en développement"},
@@ -822,11 +834,11 @@ var IMPACT=[
     {id:"active",n:"Retour au calme actif",d:"Six à dix minutes très souples en fin de séance. Jamais entre deux courses rapprochées, où rester assis vaut mieux."},
     {id:"veinoplus",n:"VeinoPlus · stimulateur de flux sanguin",d:"À ne pas confondre avec l'électrostimulation musculaire classique. Deux essais chez des professionnels, en soccer et en handball, montrent une meilleure performance à l'effort suivant et un lactate qui redescend plus vite quand la pause est courte. Outil d'entre-deux-courses, pas de fin de journée.",varNote:"Validé seulement sur les pauses courtes"},
     {id:"firefly",n:"Firefly · pompe du mollet",d:"Active la pompe du mollet en stimulant le nerf fibulaire. Chez des athlètes, un essai montre moins de douleur ressentie à 24 et 48 h, mieux que des bas de compression, mais rien sur la force ni sur les marqueurs de dommage. Sa base la plus solide vient du domaine clinique, sur le retour veineux.",varNote:"Effet documenté sur le ressenti, pas sur la fonction"},
-    {id:"chaud",n:"Bain chaud le soir",d:"Améliore la qualité du sommeil quand il est pris une à deux heures avant le coucher. Rien de direct sur la performance."}
+    {id:"chaud",n:"Bain chaud le soir",d:"Pris une à deux heures avant le coucher, entre 40 et 42 °C, il raccourcit l\'endormissement dans une méta-analyse de treize essais. Une méta-analyse plus récente ne retrouve rien sur l\'endormissement ni sur la qualité perçue, seulement un temps de sommeil et une efficacité un peu meilleurs. Rien de direct sur la performance.",varNote:"Méta-analyses en désaccord"}
   ]},
   {band:"c",key:"confort",t:"Confort · gains sur le ressenti",s:"Agréable, sans risque, et sans effet mesuré sur la performance. Fais-le seulement si ça ne prend pas la place du sommeil.",rows:[
-    {id:"rouleau",n:"Rouleau et massage",d:"Soulagent la douleur et la raideur. Rien de mesuré sur le saut, la force ou la vitesse."},
-    {id:"bottes",n:"Bottes pneumatiques",d:"Font du bien aux jambes lourdes. Aucun effet sur la fonction musculaire."},
+    {id:"rouleau",n:"Rouleau et massage",d:"Soulagent la douleur et la raideur. La plus grande méta-analyse sur le massage, vingt-neuf essais et plus de mille participants, ne trouve aucun effet sur la force, le saut, le sprint ni l endurance. Pour le rouleau, les méta-analyses se contredisent sur la douleur. Un massage court, cinq à douze minutes, ressort mieux qu un massage long.",varNote:"Méta-analyses en désaccord"},
+    {id:"bottes",n:"Bottes pneumatiques",d:"Font du bien aux jambes lourdes. Deux méta-analyses trouvent un petit effet sur la douleur ressentie, une troisième n en trouve aucun à 24 h. Aucune ne trouve d effet sur la fonction musculaire.",varNote:"Méta-analyses en désaccord"},
     {id:"estim",n:"Électrostimulation musculaire",d:"Quatorze études, quatre cent trente-cinq participants : aucun effet retenu, ni sur les courbatures ni sur la récupération. Attention à ne pas confondre avec les stimulateurs de flux sanguin, qui visent un tout autre objectif."}
   ]}
 ];
